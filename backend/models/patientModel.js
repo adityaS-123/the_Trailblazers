@@ -17,6 +17,11 @@ const userSchema = new mongoose.Schema({
         type :Number,
         required:true
     },
+    hospitals:{
+        type:Array,
+        dafault:[],
+    },
+    
     prevReport:{
         type:Array,
         

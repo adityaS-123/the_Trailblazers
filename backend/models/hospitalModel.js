@@ -3,14 +3,111 @@ const mongoose = require('mongoose')
 const HospitalSchema = mongoose.Schema({
   type: {
     type: String,
-    required: true,
+    
     default: 'govt'    
   },
-
-  doctors: {
-    type: Array,
-    
+  ENT:{
+    senior:{
+      type:string
+    },
+    intern:
+    {
+      type:string
+    }
   },
+  Ortho:{
+    senior:{
+      type:string
+    },
+    intern:
+    {
+      type:string
+    }
+  },
+  Neuro:{
+    senior:{
+      type:string
+    },
+    intern:
+    {
+      type:string
+    }
+  },
+  Pediatrics:{
+    senior:{
+      type:string
+    },
+    intern:
+    {
+      type:string
+    }
+  },
+  Cardio:{
+    senior:{
+      type:string
+    },
+    intern:
+    {
+      type:string
+    }
+  },
+  Pulmonary:{
+    senior:{
+      type:string
+    },
+    intern:
+    {
+      type:string
+    }
+  },
+  Dental:{
+    senior:{
+      type:string
+    },
+    intern:
+    {
+      type:string
+    }
+  },
+  Gynecology:{
+    senior:{
+      type:string
+    },
+    intern:
+    {
+      type:string
+    }
+  },
+  Dermatology:{
+    senior:{
+      type:string
+    },
+    intern:
+    {
+      type:string
+    }
+  },
+  Dental:{
+    senior:{
+      type:string
+    },
+    intern:
+    {
+      type:string
+    }
+  },
+  Psychiatry:{
+    senior:{
+      type:string
+    },
+    intern:
+    {
+      type:string
+    }
+  },
+  
+
+  
   name: {
     type: String,
     required: true,

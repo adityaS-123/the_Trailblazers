@@ -1,4 +1,6 @@
 const Hospital =require( '../models/hospitalModel.js')
+const Patient =require( '../models/patientModel.js')
+const Doctor =require( '../models/doctorModel.js')
 const generateToken =require('../utils/generateToken.js')
 const expressAsync = require("express-async-handler")
 
@@ -80,8 +82,19 @@ const getAllHospitals=expressAsync(async(req,res)=>{
     }
 })
 
+const selectHospital=expressAsync(async(req,res)=>{
+    try{
+        const {hospital_id,patient_id}=req.body
+        const patient=await Patient.findOneAndUpdate({_id:patient_id},{$push:{hospitals:hospital_id}})
+        res.json(patient);
+        
+    }catch(e){
+        res.status(500).send
+    }
+})
 
-module.exports = {login,register,getAlldoctors,getAllHospitals}
+
+module.exports = {login,register,getAlldoctors,getAllHospitals,selectHospital}
 
 
 
