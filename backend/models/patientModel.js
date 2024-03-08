@@ -29,9 +29,12 @@ const userSchema = new mongoose.Schema({
     curReport:{
         type:String,
     },
-    DoctorAssigned:{
+    doctorAssigned:{
         type:String,
     
+    },
+    curToken:{
+        type:Number,
     },
     email: {
         type: String,

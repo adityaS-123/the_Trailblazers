@@ -10,7 +10,7 @@ const HospitalSchema = mongoose.Schema({
     senior:{
       type:string
     },
-    intern:
+    junior:
     {
       type:string
     }
@@ -19,7 +19,7 @@ const HospitalSchema = mongoose.Schema({
     senior:{
       type:string
     },
-    intern:
+    junior:
     {
       type:string
     }
@@ -28,7 +28,7 @@ const HospitalSchema = mongoose.Schema({
     senior:{
       type:string
     },
-    intern:
+    junior:
     {
       type:string
     }
@@ -37,7 +37,7 @@ const HospitalSchema = mongoose.Schema({
     senior:{
       type:string
     },
-    intern:
+    junior:
     {
       type:string
     }
@@ -46,7 +46,7 @@ const HospitalSchema = mongoose.Schema({
     senior:{
       type:string
     },
-    intern:
+    junior:
     {
       type:string
     }
@@ -55,7 +55,7 @@ const HospitalSchema = mongoose.Schema({
     senior:{
       type:string
     },
-    intern:
+    junior:
     {
       type:string
     }
@@ -64,7 +64,7 @@ const HospitalSchema = mongoose.Schema({
     senior:{
       type:string
     },
-    intern:
+    junior:
     {
       type:string
     }
@@ -73,7 +73,7 @@ const HospitalSchema = mongoose.Schema({
     senior:{
       type:string
     },
-    intern:
+    junior:
     {
       type:string
     }
@@ -82,7 +82,7 @@ const HospitalSchema = mongoose.Schema({
     senior:{
       type:string
     },
-    intern:
+    junior:
     {
       type:string
     }
@@ -91,7 +91,7 @@ const HospitalSchema = mongoose.Schema({
     senior:{
       type:string
     },
-    intern:
+    junior:
     {
       type:string
     }
@@ -100,7 +100,7 @@ const HospitalSchema = mongoose.Schema({
     senior:{
       type:string
     },
-    intern:
+    junior:
     {
       type:string
     }

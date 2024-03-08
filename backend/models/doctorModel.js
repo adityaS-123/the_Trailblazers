@@ -14,6 +14,16 @@ const doctorSchema = new mongoose.Schema({
         type:Array,
         default:[]
     },
+    today:{
+        type:Array,
+        default:[]
+    },
+    tomorrow:{
+        type:Array,
+        default:[]
+    },
+    
+    
     email: {
         type: String,
         
