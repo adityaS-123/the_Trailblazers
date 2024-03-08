@@ -6,7 +6,7 @@ const generateToken =require('../utils/generateToken.js')
         const {email,password}=req.body
         const doctor=await Doctor.findOne({email})
         if(doctor &&  doctor.password==password){
-           const jwtToken= generateToken(doctor._id);
+            const jwtToken= generateToken(doctor._id);
             res.json({
                 _id:doctor._id,
                 name:doctor.name,
@@ -38,7 +38,7 @@ const generateToken =require('../utils/generateToken.js')
             mobile
         })
         await doctor.save();
-       const jwtToken = generateToken(doctor._id);
+        const jwtToken = generateToken(doctor._id);
         res.json({
             _id:doctor._id,
             name:doctor.name,
