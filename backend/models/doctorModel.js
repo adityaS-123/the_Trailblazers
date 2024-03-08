@@ -9,7 +9,6 @@ const doctorSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    
     patients:{
         type:Array,
         default:[]
@@ -22,7 +21,6 @@ const doctorSchema = new mongoose.Schema({
         type:Array,
         default:[]
     },
-    
     
     email: {
         type: String,

@@ -9,11 +9,11 @@ const makeToken=async(req,res)=>{
     try{
         const {useremail,severity,appointmentType,day}=req.body;
         const patient= await Patient.findOne({email:useremail});
-        const hospital=patient.hospitals[-1];
-        const senior_id= await hospital.appointmentType.senior;
-        const junior_id= await hospital.appointmentType.junior;
-        const senior= await Doctor.findOne({_id:senior_id});
-        const junior= await Doctor.findOne({_id:junior_id});
+        const hospitalOf=patient.hospitals[-1];
+        const hospital = await Hospital.findOne({_id:hospitalOf});
+        const dept = hospital["appointmentType"].appointmentType
+        const senior= dept.senior
+        const junior= dept.junior
 
         if(day=="today"){
             if(severity>=3){
