@@ -1,4 +1,4 @@
-
+const nodemailer = require('nodemailer')
 const expressAsyncHandler = require('express-async-handler');
 const Patient = require('../models/patientModel');
 const axios = require('axios')
