@@ -2,12 +2,12 @@ const Hospital =require( '../models/hospitalModel.js')
 const generateToken =require('../utils/generateToken.js')
 const expressAsync = require("express-async-handler")
 
- const login=expressAsync(async(req,res)=>{
+const login=expressAsync(async(req,res)=>{
     try{
         const {email,password}=req.body
         const admin=await Hospital.findOne({email})
         if(admin &&  admin.password==password){
-           const jwtToken= generateToken(admin._id);
+            const jwtToken= generateToken(admin._id);
             res.json({
                 _id:admin._id,
                 name:admin.name,
@@ -45,17 +45,16 @@ const expressAsync = require("express-async-handler")
         const saved= await hospital.save();
 
         console.log("saved");
-       if(saved){
-        const jwtToken =  generateToken(hospital._id);
-       res.status(200)
-        res.json({
-            _id:admin._id,
-            name:admin.name,
-            email:admin.email,
-            jwtToken:jwtToken
-            
-        })
-    }
+        if(saved){
+            const jwtToken =  generateToken(hospital._id);
+            res.status(200)
+            res.json({
+                _id:admin._id,
+                name:admin.name,
+                email:admin.email,
+                jwtToken:jwtToken
+            })
+        }
     }
     catch(e){
         res.status(500).send(e)
