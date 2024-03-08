@@ -20,7 +20,7 @@ const makeToken=async(req,res)=>{
                 if(senior.today.length()>=28){
                     if(senior.tomorrow.length()>=28){
                         //hawwwwwwww
-                        res.json("No slots available")
+                        res.json("No slots available for today and Tomorrow")
                     }
                     else{
                         senior.tomorrow.push(patient._id);
@@ -32,23 +32,34 @@ const makeToken=async(req,res)=>{
                 }
                 else{
                     senior.today.push(patient._id);
-                    const token =senior.tomorrow.length();
+                    const token =senior.today.length();
                         patient.doctorAssigned=senior_id;
                         patient.curToken=token;
-                        res.json(token=`Tom${token}`,doctorAssigned=`Dr.${senior.name}`)
+                        res.json(token=`Tod${token}`,doctorAssigned=`Dr.${senior.name}`)
                 }
             }
             else{
                 if(junior.today.length()>=28){
                     if(junior.tomorrow.length()>=28){
                         //hawwwwwwww
+                        res.json("No slots available for today and Tomorrow")
+
                     }
                     else{
                         junior.tomorrow.push(patient._id);
+                        const token =junior.tomorrow.length();
+                        patient.doctorAssigned=junior_id;
+                        patient.curToken=token;
+                        res.json(token=`Tod${token}`,doctorAssigned=`Dr.${junior.name}`)
+
                     }
                 }
                 else{
                     junior.today.push(patient._id);
+                    const token =junior.today.length();
+                    patient.doctorAssigned=junior_id;
+                    patient.curToken=token;
+                    res.json(token=`Tod${token}`,doctorAssigned=`Dr.${junior.name}`)
                 }
             }
         }
@@ -56,17 +67,29 @@ const makeToken=async(req,res)=>{
             if(severity>=3){
                 if(senior.tomorrow.length()>=28){
                     //hawwwwww
+                    res.json("No slots available for today and Tomorrow")
                 }
                 else{
                     senior.tomorrow.push(patient._id);
+                    const token =senior.tomorrow.length();
+                    patient.doctorAssigned=senior_id;
+                    patient.curToken=token;
+                    res.json(token=`Tom${token}`,doctorAssigned=`Dr.${senior.name}`)
                 }
             }
             else{
                 if(junior.tomorrow.length()>=28){
                     //hawwwwwwww
+                    res.json("No slots available for today and Tomorrow")
+
+
                 }
                 else{
                     junior.tomorrow.push(patient._id);
+                    const token =junior.tomorrow.length();
+                    patient.doctorAssigned=junior_id;
+                    patient.curToken=token;
+                    res.json(token=`Tom${token}`,doctorAssigned=`Dr.${junior.name}`)
                 }
             }
 
