@@ -1,5 +1,6 @@
 const Doctor =require( '../models/doctorModel.js')
 const generateToken =require('../utils/generateToken.js')
+const jwt = require('jsonwebtoken')
 
  const login=async(req,res)=>{
     try{
@@ -59,6 +60,12 @@ const generateToken =require('../utils/generateToken.js')
     }catch(e){
         res.status(500).send
     }
+}
+
+const doneForToday = async(req, res)=>{
+    const {jwtToken} = req.body
+
+    const data = jwt.
 }
 
 module.exports={login,register,getDoctor};

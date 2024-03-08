@@ -106,3 +106,5 @@ const makeToken=async(req,res)=>{
         ).send(e);
         }
 }
+
+module.exports = makeToken
