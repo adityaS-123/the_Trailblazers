@@ -14,7 +14,6 @@ app.use(express.json())
 
 // redirect to patient routes
 app.use('/user/', require('./routes/patientRoutes'))
-// app.use('/user/', require('./routes/patientRoutes'))
 app.use('/admin/', require('./routes/hospitalRoutes'))
 app.use('/doctor/', require('./routes/doctorRoutes'))
 
