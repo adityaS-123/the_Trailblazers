@@ -16,3 +16,5 @@ router.route('/getDoctors').get(getAlldoctors);
 // router.route('/getDoctors').get(hospitalController.getDoctors);
 
 module.exports = router;
+
+module.exports = router;
