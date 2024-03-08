@@ -23,12 +23,19 @@ const makeToken=async(req,res)=>{
                         res.json("No slots available")
                     }
                     else{
-                        senior.tomorrow.push(patient._id)
-                        res.json()
+                        senior.tomorrow.push(patient._id);
+                        const token =senior.tomorrow.length();
+                        patient.doctorAssigned=senior_id;
+                        patient.curToken=token;
+                        res.json(token=`Tom${token}`,doctorAssigned=`Dr.${senior.name}`)
                     }
                 }
                 else{
                     senior.today.push(patient._id);
+                    const token =senior.tomorrow.length();
+                        patient.doctorAssigned=senior_id;
+                        patient.curToken=token;
+                        res.json(token=`Tom${token}`,doctorAssigned=`Dr.${senior.name}`)
                 }
             }
             else{
