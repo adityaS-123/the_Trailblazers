@@ -26,18 +26,30 @@ const datatoBot = (async (req, res) => {
 })
 
 const currentUser = expressAsync(async(req, res) => {
+  const {jwtToken} = req.body
+
+  const email = jwt.decode(jwtToken)
+
+  const patient = await Patient.findOne({email})
+
   res.status(200).send('hitting curretn user route')
 })
 
 const registerUser = expressAsync(async(req, res) => {
+  try {
+    const {name, sex, dob, age, mobile, email} = req.body
 
-
-
-  res.status(200).send('register current user')
+    const newPatient = new Patient({name, email, sex, dob, age, mobile})
+    await newPatient.save()
+  
+    res.status(200).send('registered current user')
+  } catch (error) {
+    res.status(400).json({error})
+  }
 })
 
 const sendOTP = expressAsync(async(req, res) => {
-  let {email} = req.body;
+  let {email} = req.body
 
   const patient = await Patient.findOne({email})
 

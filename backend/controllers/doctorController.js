@@ -61,6 +61,10 @@ const generateToken =require('../utils/generateToken.js')
     }
 }
 
+const doneForToday = async(req, res)=>{
+    
+}
+
 module.exports={login,register,getDoctor};
 
 

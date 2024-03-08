@@ -10,13 +10,11 @@ const makeToken=async(req,res)=>{
         const hospital=patient.hospitals[-1];
         const senior= await hospital.appointmentType.senior;
         const intern= await hospital.appointmentType.intern;
-
-
-
-
     }
     catch(e){
         res.status(500
         ).send(e);
         }
 }
+
+module.exports = makeToken
