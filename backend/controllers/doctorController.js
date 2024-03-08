@@ -65,10 +65,21 @@ const jwt = require('jsonwebtoken')
 const doneForToday = async(req, res)=>{
     const {jwtToken} = req.body
 
-    const data = jwt.
+    const data = jwt.decode(jwtToken)
+    const {name, doctor_id} = body
+
+    const doctor = await Doctor.findOne({_id: doctor_id})
+    const todayPatients = doctor.today
+    const tomorrowPatients = doctor.tomorrow
+
+    // clear todays patients
+    await Doctor.findByIdAndUpdate({_id: doctor._id, today: []})
+    
+    // append them to tomorrow
+    await Doctor.findOneAndUpdate({_id: doctor_id._id}, {$push: {tomorrow: todayPatients}})
 }
 
-module.exports={login,register,getDoctor};
+module.exports={login,register,getDoctor, doneForToday};
 
 
 
