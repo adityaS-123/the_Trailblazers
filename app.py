@@ -115,9 +115,5 @@ def callchat():
 
     print(my_dictionary)
     
-
-
-
-
 if __name__ == '__main__':
     app.run()
