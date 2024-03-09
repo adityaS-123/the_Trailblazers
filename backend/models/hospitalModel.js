@@ -6,105 +6,103 @@ const HospitalSchema = mongoose.Schema({
     
     default: 'govt'    
   },
-  appointmentType:{
-    ENT:{
-      senior:{
-        type:string
-      },
-      junior:
-      {
-        type:string
-      }
+  ENT:{
+    senior:{
+      type:Object
     },
-    Ortho:{
-      senior:{
-        type:string
-      },
-      junior:
-      {
-        type:string
-      }
+    junior:
+    {
+      type:Object
+    }
+  },
+  Ortho:{
+    senior:{
+      type: Object
     },
-    Neuro:{
-      senior:{
-        type:string
-      },
-      junior:
-      {
-        type:string
-      }
+    junior:
+    {
+      type:Object
+    }
+  },
+  Neuro:{
+    senior:{
+      type: Object
     },
-    Pediatrics:{
-      senior:{
-        type:string
-      },
-      junior:
-      {
-        type:string
-      }
+    junior:
+    {
+      type:Object
+    }
+  },
+  Pediatrics:{
+    senior:{
+      type: Object
     },
-    Cardio:{
-      senior:{
-        type:string
-      },
-      junior:
-      {
-        type:string
-      }
+    junior:
+    {
+      type:Object
+    }
+  },
+  Cardio:{
+    senior:{
+      type: Object
     },
-    Pulmonary:{
-      senior:{
-        type:string
-      },
-      junior:
-      {
-        type:string
-      }
+    junior:
+    {
+      type:Object
+    }
+  },
+  Pulmonary:{
+    senior:{
+      type: Object
     },
-    Dental:{
-      senior:{
-        type:string
-      },
-      junior:
-      {
-        type:string
-      }
+    junior:
+    {
+      type:Object
+    }
+  },
+  Dental:{
+    senior:{
+      type: Object
     },
-    Gynecology:{
-      senior:{
-        type:string
-      },
-      junior:
-      {
-        type:string
-      }
+    junior:
+    {
+      type:Object
+    }
+  },
+  Gynecology:{
+    senior:{
+      type: Object
     },
-    Dermatology:{
-      senior:{
-        type:string
-      },
-      junior:
-      {
-        type:string
-      }
+    junior:
+    {
+      type:Object
+    }
+  },
+  Dermatology:{
+    senior:{
+      type: Object
     },
-    Dental:{
-      senior:{
-        type:string
-      },
-      junior:
-      {
-        type:string
-      }
+    junior:
+    {
+      type:Object
+    }
+  },
+  Dental:{
+    senior:{
+      type: Object
     },
-    Psychiatry:{
-      senior:{
-        type:string
-      },
-      junior:
-      {
-        type:string
-      }
+    junior:
+    {
+      type:Object
+    }
+  },
+  Psychiatry:{
+    senior:{
+      type: Object
+    },
+    junior:
+    {
+      type:Object
     }
   },  
   name: {
@@ -122,6 +120,9 @@ const HospitalSchema = mongoose.Schema({
   patients: {
     type: Array,
     
+  },
+  password: {
+    type: String
   }
 })
 

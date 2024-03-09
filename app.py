@@ -13,6 +13,7 @@ os.environ['GOOGLE_API_KEY'] = "AIzaSyBXj7g61Uv2RAC4_V6O0zuM-x-7wS5kbhY"
 genai.configure(api_key = os.environ['GOOGLE_API_KEY'])
 
 app = Flask(__name__)
+CORS(app)
 
 @app.route("/")
 def index():
@@ -39,6 +40,8 @@ def callchat():
     engine.setProperty('rate', 150)
     my_dictionary = {}
 
+    except Exception as e:
+        return jsonify({"error": str(e)})
 
     def speak(Audio):
         engine.say(Audio)

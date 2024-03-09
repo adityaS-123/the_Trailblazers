@@ -6,103 +6,137 @@ const generateToken = require('../utils/generateToken');
 
 
 const makeToken=async(req,res)=>{
+    console.log("aagya")
     try{
         const {useremail,severity,appointmentType,day}=req.body;
+        console.log(useremail,severity,appointmentType,day)
         const patient= await Patient.findOne({email:useremail});
-        const hospitalOf=patient.hospitals[-1];
-        const hospital= await Hospital.findOne({_id:hospitalOf})
-        const senior_id= await hospital[appointmentType].senior;
-        const junior_id= await hospital[appointmentType].junior;
-        const senior= await Doctor.findOne({_id:senior_id});
-        const junior= await Doctor.findOne({_id:junior_id});
+
+        console.log('patient', patient)
+        const hospitalId=patient.hospitals[patient.hospitals.length-1];
+
+        console.log('hopspita idL ', hospitalId)
+        
+        const currentHospital= await Hospital.findOne({_id:hospitalId})
+        console.log("current: ", currentHospital)
+
+
+        const seniorId= currentHospital[appointmentType].senior.id
+        const juniorId= currentHospital[appointmentType].junior.id
+
+        console.log('ids: ', seniorId, juniorId)
+
+        let seniorDoctor = await Doctor.findOne({_id: seniorId})
+        console.log('senior doctor: ', seniorDoctor)
+        let juniorDoctor = await Doctor.findOne({_id: juniorId})
+        console.log('jr doctor: ', juniorDoctor)
+        
+
 
         if(day=="today"){
             if(severity>=3){
-                if(senior.today.length()>=28){
-                    if(senior.tomorrow.length()>=28){
-                        //hawwwwwwww
+                if(seniorDoctor.today.length>=28){
+                    if(seniorDoctor.tomorrow.length>=28){
                         res.json("No slots available for today and Tomorrow")
                     }
                     else{
-                        senior.tomorrow.push(patient._id);
-                        const token =senior.tomorrow.length();
-                        patient.doctorAssigned=senior_id;
-                        patient.curToken=token;
-                        res.json(token=`Tom${token}`,doctorAssigned=`Dr.${senior.name}`)
+                        seniorDoctor.tomorrow.push(patient._id)
+                        const token = senior.tomorrow.length
+                        // assigning the doctor
+                        patient.doctorAssigned=seniorId
+
+                        patient.curToken=token
+                        await patient.save()
+                        await seniorDoctor.save()
+                        res.status(200).json(token=`Tom${token}`,doctorAssigned=`Dr.${seniorDoctor.name}`)
                     }
                 }
                 else{
-                    senior.today.push(patient._id);
-                    const token =senior.today.length();
-                        patient.doctorAssigned=senior_id;
-                        patient.curToken=token;
-                        res.json(token=`Tod${token}`,doctorAssigned=`Dr.${senior.name}`)
+                    seniorDoctor.today.push(patient._id)
+                    const token = seniorDoctor.today.length
+                    patient.doctorAssigned=seniorId
+                    patient.curToken=token
+
+                    // saving the data
+                    await patient.save()
+                    await seniorDoctor.save()
+                    res.json({token: `Tod${token}`,doctorAssigned:`Dr.${seniorDoctor.name}`})
                 }
             }
             else{
-                if(junior.today.length()>=28){
-                    if(junior.tomorrow.length()>=28){
-                        //hawwwwwwww
+                if(juniorDoctor.today.length>=28){
+                    if(juniorDoctor.tomorrow.length>=28){
                         res.json("No slots available for today and Tomorrow")
 
                     }
                     else{
-                        junior.tomorrow.push(patient._id);
-                        const token =junior.tomorrow.length();
-                        patient.doctorAssigned=junior_id;
-                        patient.curToken=token;
-                        res.json(token=`Tod${token}`,doctorAssigned=`Dr.${junior.name}`)
+                        juniorDoctor.tomorrow.push(patient._id);
+                        const token =juniorDoctor.tomorrow.length
+                        patient.doctorAssigned=juniorId;
+                        patient.curToken=token
+
+                        // saving the data
+                        await patient.save()
+                        await juniorDoctor.save()
+                        res.json(token=`Tod${token}`,doctorAssigned=`Dr.${juniorDoctor.name}`)
 
                     }
                 }
                 else{
-                    junior.today.push(patient._id);
-                    const token =junior.today.length();
-                    patient.doctorAssigned=junior_id;
-                    patient.curToken=token;
-                    res.json(token=`Tod${token}`,doctorAssigned=`Dr.${junior.name}`)
+                    juniorDoctor.today.push(patient._id)
+                    const token = juniorDoctor.today.length
+                    patient.doctorAssigned = juniorId
+                    patient.curToken=token
+
+                    // saving the data
+                    await patient.save()
+                    await juniorDoctor.save()
+                    res.json(token=`Tod${token}`,doctorAssigned=`Dr.${juniorDoctor.name}`)
                 }
             }
         }
         else if(day=="tomorrow"){
             if(severity>=3){
-                if(senior.tomorrow.length()>=28){
-                    //hawwwwww
+                if(seniorDoctor.tomorrow.length>=28){
                     res.json("No slots available for today and Tomorrow")
                 }
                 else{
-                    senior.tomorrow.push(patient._id);
-                    const token =senior.tomorrow.length();
-                    patient.doctorAssigned=senior_id;
+                    seniorDoctor.tomorrow.push(patient._id);
+                    const token =seniorDoctor.tomorrow.length
+                    patient.doctorAssigned=seniorId;
                     patient.curToken=token;
-                    res.json(token=`Tom${token}`,doctorAssigned=`Dr.${senior.name}`)
+
+                    //saving the data
+                    await patient.save()
+                    await seniorDoctor.save()
+                    res.json(token=`Tom${token}`,doctorAssigned=`Dr.${seniorDoctor.name}`)
                 }
             }
             else{
-                if(junior.tomorrow.length()>=28){
-                    //hawwwwwwww
+                if(juniorDoctor.tomorrow.length>=28){
                     res.json("No slots available for today and Tomorrow")
 
 
                 }
                 else{
-                    junior.tomorrow.push(patient._id);
-                    const token =junior.tomorrow.length();
-                    patient.doctorAssigned=junior_id;
-                    patient.curToken=token;
-                    res.json(token=`Tom${token}`,doctorAssigned=`Dr.${junior.name}`)
+                    juniorDoctor.tomorrow.push(patient._id)
+                    const token =junior.tomorrow.length
+                    patient.doctorAssigned=juniorId
+                    patient.curToken=token
+
+                    // saving the data
+                    await patient.save()
+                    await juniorDoctor.save()
+                    res.json(token=`Tom${token}`,doctorAssigned=`Dr.${juniorDoctor.name}`)
                 }
             }
 
+
+
         }
-
-
-        
-
-
-
     }
     catch(e){
+        console.log("error:" , e)
         res.status(500
         ).send(e);
         }
