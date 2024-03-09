@@ -1,6 +1,7 @@
 import React from "react";
 import Login from "./components/Login"
 import Navbar from "./components/Navbar";
+import Page from "./components/dashboard/page";
 import styles from "./index.css"
 import "reactstrap/lib/";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -21,7 +22,14 @@ export default function App() {
                 </>
                 }
             />
-           
+            <Route
+                path="/mydashboard"
+                element={
+                  <>
+                    <Page />
+                  </>
+                }
+            />
             
             <Route 
                 path="/signup" 

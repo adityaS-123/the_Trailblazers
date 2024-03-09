@@ -203,12 +203,17 @@ const doneForToday = async(req, res)=>{
     const doctor = await Doctor.findOne({_id: doctor_id})
     const todayPatients = doctor.today
     const tomorrowPatients = doctor.tomorrow
-
+    const combinedArray =  [todayPatients, tomorrowPatients]
     // clear todays patients
-    await Doctor.findByIdAndUpdate({_id: doctor._id, today: []})
+
+    if ((todayPatients.length + tomorrowPatients.length) > 28){
+        const leftoverLen = todayPatients.length + tomorrowPatients.length - 28
+        await Doctor.findByIdAndUpdate({_id: doctor._id, today: combinedArray.slice(0, leftoverLen)})
+    } else{
+        await Doctor.findByIdAndUpdate({_id: doctor_id, today: [combinedArray]})
+    }
     
     // append them to tomorrow
-    await Doctor.findOneAndUpdate({_id: doctor_id._id}, {$push: {tomorrow: todayPatients}})
 }
 
 module.exports={login,register,getDoctor, doneForToday};
