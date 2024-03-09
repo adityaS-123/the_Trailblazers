@@ -32,8 +32,7 @@ export default function App() {
                     <Page />
                   </>
                 }
-            />
-            
+            />       
             
             <Route 
                 path="/signup" 

@@ -6,6 +6,7 @@ import MyPrescriptions from './components/MyPrescriptions'
 import HospitalSelect from './components/HospitalSelect'
 import Doxaab from './components/Doxaab'
 import RegistrationForm from './components/RegistrationForm'
+import TokenDetails from './components/TokenDetails'
 
 const Page = () => {
   const [currentViewingMode, setCurrentViewingMode] = useState('landing')
@@ -13,6 +14,7 @@ const Page = () => {
 
   const changeFromComp = (value) => {
     setCurrentViewingMode(value)
+    localStorage.setItem('mode', value)
   }
 
 
@@ -44,7 +46,7 @@ const Page = () => {
                       break;
               case 'registration':
                         return(
-                  <RegistrationForm />
+                  <RegistrationForm changeMode={setCurrentViewingMode}/>
                   )
                   break
               case 'report':
@@ -62,8 +64,13 @@ const Page = () => {
                               <Doxaab />
                               )
                               break
-                              default:
-                                break;
+              case 'tokenDetails':
+                return(
+                  <TokenDetails />
+                  )
+                  break;
+              default:
+                break;
             }
           })()
         }

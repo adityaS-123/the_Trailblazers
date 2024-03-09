@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 
-const RegistrationForm = () => {
+const RegistrationForm = ({changeMode}) => {
   const options = [
     { "label": "ENT", "value": "ENT" },
     { "label": "Ortho", "value": "Ortho" },
@@ -14,6 +14,13 @@ const RegistrationForm = () => {
     { "label": "Psychiatry", "value": "Psychiatry" }
   ]
   
+  const handleProceed = () => {
+    // hit api
+
+    // run the changes
+    changeMode('landing')
+  }
+
   const [selectedOption, setSelectedOption] = useState('');
 
   const handleSelect = (value) => {
@@ -55,7 +62,7 @@ const RegistrationForm = () => {
 
         </div>
       </div>
-      <button className=" bg-green-500 text-black font-medium text-xl self-center px-5 py-2 rounded-xl">
+      <button onClick={handleProceed} className=" bg-green-500 text-black font-medium text-xl self-center px-5 py-2 rounded-xl">
         Proceed
       </button>
     </div>

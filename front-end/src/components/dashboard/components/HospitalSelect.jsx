@@ -34,6 +34,7 @@ const HospitalSelect = ({changeMode, setHospital}) => {
     alert(`your selected hospital is: ${value}`)
     setHospital(value)
     changeMode('registration')
+    localStorage.setItem("hospital", value)
   }
 
   return (
