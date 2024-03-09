@@ -5,8 +5,8 @@ const LoginForm = () => {
 
   const [open,setOpen] = useState(false);
   const [otp, setOtp] = useState('');
-  cosnt [email, setEmail] = useState('');
-  cosnt [mobile, setMobile] = useState('');
+  const [email, setEmail] = useState('');
+  const [mobile, setMobile] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -34,6 +34,7 @@ return(
               value={otp}
               onChange={(e) => setOtp(e.target.value)}
               placeholder="Enter OTP"
+              
               
             />
             <br />
