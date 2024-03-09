@@ -2,7 +2,7 @@ import React from 'react';
 import './Login.css'; // Make sure to create a corresponding CSS file
 import "reactstrap";
 
-const LoginForm = () => {
+const SignUpForm = () => {
 return(
     <div class="container login-container text-center justify-center align-center ">
   <div class="row h-50 ">
@@ -42,4 +42,4 @@ return(
 
 
 
-export default LoginForm;
+export default SignUpForm;
