@@ -5,6 +5,8 @@ const MyPrescriptions = () => {
     <div>
       MyPrescriptions
     </div>
+
+
   )
 }
 

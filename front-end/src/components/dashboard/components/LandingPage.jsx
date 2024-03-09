@@ -7,8 +7,8 @@ const LandingPage = () => {
       <div className="flex gap-5 items-center justify-start p-5">
         <img src="/profile.png" width={100}/>
         <div className="flex flex-col items-start gap-1">
-          <p className="text-3xl">Welcome Back</p>
-          <p className="text-5xl">Rakesh Kumar</p>
+          <p className="text-3xl font-cerebri mb-1">Welcome Back</p>
+          <p className="text-5xl font-cerebri font-bold">Rakesh Kumar</p>
         </div>
       </div>
       <div className="flex w-full justify-start items-center p-10 landing-page-bg">

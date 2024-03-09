@@ -55,8 +55,18 @@ return(
     <form className="login-form ">
           <h1 className='headings'>Login</h1>
           
-          <input onChange={(e)=>setMobile(e.target.value)} className='border px-2 rounded' type="tel" placeholder="Mobile Number" />
-          <input onChange={(e)=>setEmail(e.target.value)} className='border px-2 rounded' type="email" placeholder="Email" />
+          <input
+            onChange={(e) => setMobile(e.target.value)}
+            className='border px-2 rounded mobile-input' // Added custom class 'mobile-input'
+            type="tel"
+            placeholder="Mobile Number"
+        />          
+          <input
+              onChange={(e) => setEmail(e.target.value)}
+              className='border px-2 rounded email-input' // Added custom class 'email-input'
+              type="email"
+              placeholder="Email"
+          />
           <button onClick={handleSubmit}  type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mt-3 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Login</button>
         </form>
   </div>

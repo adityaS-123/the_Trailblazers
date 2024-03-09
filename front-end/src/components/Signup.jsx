@@ -1,9 +1,9 @@
-import React,{useState} from 'react';
+import React, { useState } from 'react';
 import './Login.css'; // Make sure to create a corresponding CSS file
 
 const LoginForm = () => {
 
-  const [open,setOpen] = useState(false);
+  const [open, setOpen] = useState(false);
   const [otp, setOtp] = useState('');
   const [email, setEmail] = useState('');
   const [mobile, setMobile] = useState('');
@@ -11,34 +11,29 @@ const LoginForm = () => {
   const [age, setAge] = useState('');
   const [dob, setDob] = useState('');
 
-
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("kattaa");
     setOpen(!open);
-
   }
+
   const handleVerify = (e) => {
     e.preventDefault();
-
   }
 
-
-return(
-
-
-    <div class="min-w-screen bg-[#72B3BE] min-h-screen overflow-hidden login-container text-center justify-center p-0 align-center ">
-       {open &&
+  return (
+    <div className="min-w-screen bg-[#72B3BE] min-h-screen overflow-hidden login-container text-center justify-center p-0 align-center">
+      {open &&
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
           <div className="bg-white p-8 rounded-lg text-center">
             <h2 className="text-2xl font-bold mb-4">OTP Verification</h2>
             <p className="mb-4">Please enter the OTP sent to your email & ContactNo:</p>
-            <input className="mb-4 p-2 w-32 text-center border-2 border-gray-300 rounded"
+            <input
+              className="mb-4 p-2 w-32 text-center border-2 border-gray-300 rounded"
               type="text"
               value={otp}
               onChange={(e) => setOtp(e.target.value)}
               placeholder="Enter OTP"
-              
             />
             <br />
             <button onClick={handleVerify} className="bg-blue-500 text-white px-4 py-2 rounded mr-2">
@@ -50,30 +45,59 @@ return(
           </div>
         </div>
       }
-        
 
-      
-  <div class="flex flex-row w-screen h-screen m-auto p-0 items-center justify-center">
-    
-    <form className="login-form ">
+      <div className="flex flex-row w-screen h-screen m-auto p-0 items-center justify-center">
+        <form className="login-form ">
           <h1 className='headings'>Signup</h1>
-          <input onChange={(e)=>setName(e.target.value)} className='border px-2 rounded' type="text" placeholder="Name" value={name} />
-          <input onChange={(e)=>setAge(e.target.value)} className='border px-2 rounded' value={age} type="number" placeholder="Age" />
-          <input onChange={(e)=>setDob(e.target.value)} className='border px-2 rounded' type="date" value={dob} placeholder='Date of Birth' />
-          <select className='border px-2 rounded' placeholder="Sex">
+          <input
+            onChange={(e) => setName(e.target.value)}
+            className='border px-2 rounded input-field' // Added custom class 'input-field'
+            type="text"
+            placeholder="Name"
+            value={name}
+          />
+          <input
+            onChange={(e) => setAge(e.target.value)}
+            className='border px-2 rounded input-field' // Added custom class 'input-field'
+            type="number"
+            placeholder="Age"
+            value={age}
+          />
+          <input
+            onChange={(e) => setDob(e.target.value)}
+            className='border px-2 rounded input-field' // Added custom class 'input-field'
+            type="date"
+            placeholder="Date of Birth"
+            value={dob}
+          />
+          <select
+            className='border px-2 rounded input-field' // Added custom class 'input-field'
+            placeholder="Sex"
+          >
             <option value="male">Male</option>
             <option value="female">Female</option>
             <option value="other">Other</option>
           </select>
-          <input  onChange={(e)=>setMobile(e.target.value)}className='border px-2 rounded' type="tel" value={mobile} placeholder="Mobile Number" />
-          <input onChange={(e)=>setEmail(e.target.value)} className='border px-2 rounded' type="email" value={email} placeholder="Email" />
-          <button onClick={handleSubmit}  type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mt-3 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">SignUp</button>
+          <input
+            onChange={(e) => setMobile(e.target.value)}
+            className='border px-2 rounded input-field' // Added custom class 'input-field'
+            type="tel"
+            placeholder="Mobile Number"
+            value={mobile}
+          />
+          <input
+            onChange={(e) => setEmail(e.target.value)}
+            className='border px-2 rounded input-field' // Added custom class 'input-field'
+            type="email"
+            placeholder="Email"
+            value={email}
+          />
+          <button onClick={handleSubmit} type="button" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mt-3 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">SignUp</button>
         </form>
-  </div>
-  
-</div>
+      </div>
 
-)
+    </div>
+  )
 }
 
 // const LoginForm = () => {
@@ -96,8 +120,6 @@ return(
       
 //   )
 // }
-
-
 
 
 export default LoginForm;
