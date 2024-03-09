@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './style.css'; // Assuming you have a corresponding style.css file
+import './index.css'; // Assuming you have a corresponding style.css file
 
 function Chatbot() {
     const [messages, setMessages] = useState([]);
@@ -13,39 +13,49 @@ function Chatbot() {
         const rawText = event.target.elements.msg.value;
 
         const userHtml = (
-            <div className="d-flex justify-content-end mb-4">
+            <div className="d-flex justify-content-end mb-4" key={messages.length}>
                 <div className="msg_cotainer_send">
                     {rawText}
                     <span className="msg_time_send">{str_time}</span>
                 </div>
                 <div className="img_cont_msg">
-                    <img src="https://i.ibb.co/d5b84Xw/Untitled-design.png" className="rounded-circle user_img_msg" alt="user" />
+                    <img height="20px" src="https://i.ibb.co/d5b84Xw/Untitled-design.png" className="rounded-circle user_img_msg" alt="user" />
                 </div>
             </div>
         );
 
         setMessages([...messages, userHtml]);
 
-        const response = await fetch('/get', {
+        const response = await fetch('http://127.0.0.1:5000/get', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ msg: rawText })
+            body: JSON.stringify({ msg: rawText }),
         });
-        const data = await response.json();
 
-        const botHtml = (
-            <div className="d-flex justify-content-start mb-4">
-                <div className="img_cont_msg">
-                    <img src="https://i.ibb.co/fSNP7Rz/icons8-chatgpt-512.png" className="rounded-circle user_img_msg" alt="bot" />
-                </div>
-                <div className="msg_cotainer">
-                    {data}
-                    <span className="msg_time">{str_time}</span>
-                </div>
-            </div>
-        );
+        const data = await response.json();
+        console.log(data);
+
+        // ...
+
+const botHtml = (
+    <div className="d-flex justify-content-start mb-4" key={messages.length + 1}>
+        <div className="img_cont_msg">
+            <img src="https://i.ibb.co/fSNP7Rz/icons8-chatgpt-512.png" className="rounded-circle user_img_msg" alt="bot" />
+        </div>
+        <div className="msg_cotainer">
+            {data.response.map((item, index) => (
+                <div key={index} className="bot-response">{item}</div>
+            ))}
+            <span className="msg_time">{str_time}</span>
+        </div>
+    </div>
+);
+
+// ...
+
+        
 
         setMessages([...messages, botHtml]);
         event.target.elements.msg.value = ''; // Clear input field after submit
