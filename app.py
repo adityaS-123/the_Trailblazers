@@ -110,16 +110,9 @@ def callchat():
 
         # speak(response)
 
-<<<<<<< HEAD
     json_data = json_dumps(my_dictionary)
     return json_data
 
 
-
-
-=======
-    print(my_dictionary)
-    
->>>>>>> c23e4075a52f3265460cd86128de984bd40c40ec
 if __name__ == '__main__':
     app.run()
