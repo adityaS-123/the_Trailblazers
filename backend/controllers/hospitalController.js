@@ -34,7 +34,7 @@ const login=expressAsync(async(req,res)=>{
         if(hospitalExists){
             console.log("found already");
             res.status(400)
-            throw new Error('Doctor already exists')
+            throw new Error('hospital already exists')
         }
         const hospital=await Hospital({
             type, ENT, Ortho, Neuro, Pediatrics, Cardio, Pulmonary, Dental, Gynecology, Dermatology, Psychiatry, name, address, pincode, password           

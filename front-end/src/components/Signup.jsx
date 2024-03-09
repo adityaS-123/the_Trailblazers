@@ -16,18 +16,33 @@ return(
     </div>
     <div class="col-6">
     <form className="login-form h-100">
-          <input type="text" placeholder="Name" />
-          <input type="number" placeholder="Age" />
-          <select placeholder="Sex">
-            <option value="male">Male</option>
-            <option value="female">Female</option>
-            <option value="other">Other</option>
-          </select>
-          <input type="password" placeholder="Password" />
-          <input type="tel" placeholder="Mobile Number" />
-          <button type="submit">SIGN UP</button>
-        </form>
-
+  <div className="input-icon-container">
+    <i className="icon-user"></i>
+    <input type="text" placeholder="Name" />
+  </div>
+  <div className="input-icon-container">
+    <i className="icon-calendar"></i>
+    <input type="number" placeholder="Age" />
+  </div>
+  <div className="input-icon-container">
+    <select placeholder="Sex">
+      <option value="" disabled selected>Sex</option>
+      <option value="male">Male</option>
+      <option value="female">Female</option>
+      <option value="other">Other</option>
+    </select>
+    <i className="icon-chevron-down"></i>
+  </div>
+  <div className="input-icon-container">
+    <i className="icon-lock"></i>
+    <input type="password" placeholder="Password" />
+  </div>
+  <div className="input-icon-container">
+    <i className="icon-phone"></i>
+    <input type="tel" placeholder="Mobile Number" />
+  </div>
+  <button type="submit" className="signup-button">SIGN UP</button>
+</form>
     </div>
     <div class="col-3">
     <img src="doctor.png" className='rounded-full doctor' alt="Doctor" width="100" height="100"></img>
