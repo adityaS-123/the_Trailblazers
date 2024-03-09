@@ -5,7 +5,7 @@ import google.generativeai as genai
 import speech_recognition as sr
 import pyttsx3
 import smtplib
-
+import json
 
 model = genai.GenerativeModel('gemini-pro')
 
@@ -13,7 +13,6 @@ os.environ['GOOGLE_API_KEY'] = "AIzaSyBXj7g61Uv2RAC4_V6O0zuM-x-7wS5kbhY"
 genai.configure(api_key = os.environ['GOOGLE_API_KEY'])
 
 app = Flask(__name__)
-CORS(app)
 
 @app.route("/")
 def index():
@@ -40,8 +39,6 @@ def callchat():
     engine.setProperty('rate', 150)
     my_dictionary = {}
 
-    except Exception as e:
-        return jsonify({"error": str(e)})
 
     def speak(Audio):
         engine.say(Audio)
@@ -49,9 +46,9 @@ def callchat():
     speak("how may I help you?")
 
     with sr.Microphone() as source2:
-        speak("silence please, calibrating background noise")
-        r.adjust_for_ambient_noise(source2, duration=0.5)
-        speak("calibrated, now speak")
+        # speak("silence please, calibrating background noise")
+        r.adjust_for_ambient_noise(source2, duration=0.1)
+        # speak("calibrated, now speak")
         speak("say one if you want to register an appointment")
 
         # listen for user input
@@ -65,9 +62,9 @@ def callchat():
         speak("Sure,could you please tell us your name?")
 
         with sr.Microphone() as source2:
-            speak("silence please, calibrating background noise")
-            r.adjust_for_ambient_noise(source2, duration=0.5)
-            speak("calibrated, now speak")
+            # speak("silence please, calibrating background noise")
+            r.adjust_for_ambient_noise(source2, duration=0.1)
+            # speak("calibrated, now speak")
             audio2 = r.listen(source2)
             MyText = r.recognize_google(audio2)
             MyText = MyText.lower()
@@ -76,9 +73,9 @@ def callchat():
         speak("What is your age?")
 
         with sr.Microphone() as source2:
-            speak("silence please, calibrating background noise")
-            r.adjust_for_ambient_noise(source2, duration=0.5)
-            speak("calibrated, now speak")
+            # speak("silence please, calibrating background noise")
+            r.adjust_for_ambient_noise(source2, duration=0.1)
+            # speak("calibrated, now speak")
             audio2 = r.listen(source2)
             MyText = r.recognize_google(audio2)
             MyText = MyText.lower()
@@ -86,9 +83,9 @@ def callchat():
         speak("Are you male or female?")
 
         with sr.Microphone() as source2:
-            speak("silence please, calibrating background noise")
-            r.adjust_for_ambient_noise(source2, duration=0.5)
-            speak("calibrated, now speak")
+            # speak("silence please, calibrating background noise")
+            r.adjust_for_ambient_noise(source2, duration=0.1)
+            # speak("calibrated, now speak")
             audio2 = r.listen(source2)
             MyText = r.recognize_google(audio2)
             MyText = MyText.lower()
@@ -97,9 +94,9 @@ def callchat():
         speak("could you please describe your problem?")
 
         with sr.Microphone() as source2:
-            speak("silence please, calibrating background noise")
-            r.adjust_for_ambient_noise(source2, duration=0.5)
-            speak("calibrated, now speak")
+            # speak("silence please, calibrating background noise")
+            r.adjust_for_ambient_noise(source2, duration=0.1)
+            # speak("calibrated, now speak")
             audio2 = r.listen(source2)
             MyText = r.recognize_google(audio2)
             MyText = MyText.lower()
@@ -111,12 +108,10 @@ def callchat():
         my_dictionary["severity"] = response
         #return response
 
-        speak(response)
+        # speak(response)
 
-    print(my_dictionary)
-    
-
-
+    json_data = json_dumps(my_dictionary)
+    return json_data
 
 
 if __name__ == '__main__':
