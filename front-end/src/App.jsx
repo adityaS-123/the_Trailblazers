@@ -1,12 +1,12 @@
 import React from "react";
-import Login from "./components/Login"
-import Navbar from "./components/Navbar";
+import Signup from "./components/Signup"
 import styles from "./index.css"
 import "reactstrap/lib/";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Nav } from "reactstrap/lib/";
-import Signup from "./components/Signup";
+import Login from "./components/Login";
+import HospLogin from "./components/admin/HospLogin";
 
 export default function App() {
     return (
@@ -16,21 +16,25 @@ export default function App() {
                 path="/login"
                 element={
                 <>
-                    <Navbar />
                     <Login />
                 </>
                 }
             />
-           
-            
             <Route 
                 path="/signup" 
                 element={
                 <>
-                <Navbar/>
                 <Signup/>
                 </>
             } />
+            <Route
+                path="/admin/login"
+                element={
+                <>
+                    <HospLogin/>
+                </>
+                }
+            />
             
             <Route path="*" element={<h1>galt page</h1>} />
           
