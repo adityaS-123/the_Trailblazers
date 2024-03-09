@@ -9,18 +9,20 @@ const makeToken=async(req,res)=>{
     try{
         const {useremail,severity,appointmentType,day}=req.body;
         const patient= await Patient.findOne({email:useremail});
-        const hospitalOf=patient.hospitals[-1];
-        const hospital= await Hospital.findOne({_id:hospitalOf})
-        const senior_id= await hospital[appointmentType].senior;
-        const junior_id= await hospital[appointmentType].junior;
-        const senior= await Doctor.findOne({_id:senior_id});
+        const hospitalOf=patient.hospitals[patient.hospitals.length-1];
+        
+        const currentHospital= await Hospital.findOne({_id:hospitalOf._id})
+
+        const seniorId= await currentHospital[appointmentType].senior.id
+
+
+        const juniorName= await hospital[appointmentType].junior
         const junior= await Doctor.findOne({_id:junior_id});
 
         if(day=="today"){
             if(severity>=3){
                 if(senior.today.length()>=28){
                     if(senior.tomorrow.length()>=28){
-                        //hawwwwwwww
                         res.json("No slots available for today and Tomorrow")
                     }
                     else{
@@ -42,7 +44,6 @@ const makeToken=async(req,res)=>{
             else{
                 if(junior.today.length()>=28){
                     if(junior.tomorrow.length()>=28){
-                        //hawwwwwwww
                         res.json("No slots available for today and Tomorrow")
 
                     }
@@ -67,7 +68,6 @@ const makeToken=async(req,res)=>{
         else if(day=="tomorrow"){
             if(severity>=3){
                 if(senior.tomorrow.length()>=28){
-                    //hawwwwww
                     res.json("No slots available for today and Tomorrow")
                 }
                 else{
@@ -80,7 +80,6 @@ const makeToken=async(req,res)=>{
             }
             else{
                 if(junior.tomorrow.length()>=28){
-                    //hawwwwwwww
                     res.json("No slots available for today and Tomorrow")
 
 
@@ -95,12 +94,6 @@ const makeToken=async(req,res)=>{
             }
 
         }
-
-
-        
-
-
-
     }
     catch(e){
         res.status(500

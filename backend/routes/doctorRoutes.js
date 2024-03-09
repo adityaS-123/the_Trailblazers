@@ -9,9 +9,6 @@ router.route('/login').post(doctorController.login);
 router.route('/register').post(doctorController.register);
 router.route('/doneForToday').post(doctorController.doneForToday)
 
-// router.route('/getDoctor').get(doctorController.getHospital);
-
-// router.route('/getPatients').get(doctorController.getDoctors);
 
 
 module.exports = router

@@ -29,33 +29,32 @@ const login=expressAsync(async(req,res)=>{
  const register=expressAsync(async(req,res)=>{
     console.log("register strart");
     try{
-        const {name,email,password,pincode}=req.body
-        const hospitalExists=await Hospital.findOne({email})
+        const {type, ENT, Ortho, Neuro, Pediatrics, Cardio, Pulmonary, Dental, Gynecology, Dermatology, Psychiatry, name, address, pincode, password}=req.body
+        const hospitalExists=await Hospital.findOne({name})
         if(hospitalExists){
             console.log("found already");
             res.status(400)
             throw new Error('Doctor already exists')
         }
         const hospital=await Hospital({
-            name:name,
-            email:email,
-            password:password,
-            pincode:pincode
+            type, ENT, Ortho, Neuro, Pediatrics, Cardio, Pulmonary, Dental, Gynecology, Dermatology, Psychiatry, name, address, pincode, password           
         })
         console.log("created!");
         
         const saved= await hospital.save();
 
-        console.log("saved");
         if(saved){
-            const jwtToken =  generateToken(hospital._id);
+            console.log("saved")
+            const jwtToken =  generateToken(hospital._id)
             res.status(200)
             res.json({
-                _id:admin._id,
-                name:admin.name,
-                email:admin.email,
+                _id:hospital._id,
+                name:hospital.name,
+                address:hospital.address,
                 jwtToken:jwtToken
             })
+        } else {
+            console.log("not saved")
         }
     }
     catch(e){
