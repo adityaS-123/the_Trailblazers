@@ -4,7 +4,7 @@ import "reactstrap";
 
 const LoginForm = () => {
 return(
-    <div class="container login-container text-center justify-center align-center ">
+    <div class="container  login-container text-center justify-center align-center ">
   <div class="row h-50 ">
     <div class="col-3 images">
       <div className='dna'>
@@ -25,7 +25,7 @@ return(
           </select>
           <input type="password" placeholder="Password" />
           <input type="tel" placeholder="Mobile Number" />
-          <button type="submit">SIGN UP</button>
+          <button type="submit">Log In</button>
         </form>
 
     </div>
