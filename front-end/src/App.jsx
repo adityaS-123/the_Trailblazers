@@ -2,12 +2,17 @@ import React from "react";
 import Login from "./components/Login"
 import Navbar from "./components/Navbar";
 import Page from "./components/dashboard/page";
+import Signup from "./components/Signup"
 import styles from "./index.css"
 import "reactstrap/lib/";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Nav } from "reactstrap/lib/";
-import Signup from "./components/Signup";
+import Login from "./components/Login";
+import HospLogin from "./components/admin/HospLogin";
+import DocLogin from "./components/doctor/docLogin";
+import HospSignup from "./components/admin/HospRegis";
+import HospDash from "./components/admin/HospDash";
 
 export default function App() {
     return (
@@ -17,7 +22,6 @@ export default function App() {
                 path="/login"
                 element={
                 <>
-                    <Navbar />
                     <Login />
                 </>
                 }
@@ -35,10 +39,43 @@ export default function App() {
                 path="/signup" 
                 element={
                 <>
-                <Navbar/>
                 <Signup/>
                 </>
             } />
+            <Route
+                path="/admin/panel"
+                element={
+                <>
+                    <HospDash/>
+                </>
+                }
+            />
+            <Route
+                path="/admin/login"
+                element={
+                <>
+                    <HospLogin/>
+                </>
+                }
+            />
+            <Route
+                path="/admin/signup"
+                element={
+                <>
+                    <HospSignup/>
+                </>
+                }
+            />
+            
+            <Route
+                path="/doctor/login"
+                element={
+                <>
+                    <DocLogin/>
+                </>
+                }
+            />
+            
             
             <Route path="*" element={<h1>galt page</h1>} />
           

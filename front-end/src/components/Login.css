@@ -1,12 +1,10 @@
 
 
 .login-container{
-    /* Styles for the login container */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 90vh;
-    width: 100vw;
+  background-image: url("../../public/DNA 2.png"), url('../../public/PLUS.png'), url('../../public/DR.png');
+  background-position: 10% 25%, 10% 75%, 95% 50%;
+  background-repeat: no-repeat;
+  background-size: 250px, 300px, 400px;
   }
   
   
@@ -17,19 +15,38 @@
     align-items: center;
     
   }
+  .headings{
+    font-family:'DM Sans', sans-serif;
+    font-weight: bold;
+    margin-top: -5px;
+    
+  }
 
+  .fixed{
+    position: fixed;
+    
+  }
 
   .login-form {
     /* Styles for the login form */
     display: flex;
     flex-direction: column;
+    align-self : center;
+    justify-self: center;
+    align-items: center;
+    justify-content: center;
     margin-right:4vw;
-    width: 300px;
+    width: 500px;
+    height:500px ;
     padding: 20px;
     border: 1px solid #ccc;
+    margin: auto;
+    margin-right:3% ;
+    margin-left:3%;
     border-radius: 5px;
     background-color: #fff;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 3%;
   }
   
   .login-form h2 {
@@ -76,3 +93,24 @@
 
   
 }
+.col-6{
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  margin: auto;
+  width: 100%;
+  height: 100%;
+  margin-top:10%;
+}
+
+@media screen and (max-width: 600px)
+{
+  .images{
+    display:none;
+  }  
+  .doctor{
+    display:none;
+  }
+}
+
