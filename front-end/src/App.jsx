@@ -8,6 +8,8 @@ import { Nav } from "reactstrap/lib/";
 import Login from "./components/Login";
 import HospLogin from "./components/admin/HospLogin";
 import DocLogin from "./components/doctor/docLogin";
+import HospSignup from "./components/admin/HospRegis";
+import HospDash from "./components/admin/HospDash";
 
 export default function App() {
     return (
@@ -29,6 +31,14 @@ export default function App() {
                 </>
             } />
             <Route
+                path="/admin/panel"
+                element={
+                <>
+                    <HospDash/>
+                </>
+                }
+            />
+            <Route
                 path="/admin/login"
                 element={
                 <>
@@ -37,6 +47,15 @@ export default function App() {
                 }
             />
             <Route
+                path="/admin/signup"
+                element={
+                <>
+                    <HospSignup/>
+                </>
+                }
+            />
+            
+            <Route
                 path="/doctor/login"
                 element={
                 <>
@@ -44,6 +63,7 @@ export default function App() {
                 </>
                 }
             />
+            
             
             <Route path="*" element={<h1>galt page</h1>} />
           
