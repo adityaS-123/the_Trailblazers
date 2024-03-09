@@ -2,7 +2,7 @@ import React from 'react';
 
 const Sidebar = ({ changeViewingMode }) => {
   return (
-    <div className="w-1/3"> {/* Reduce the width by 30% */}
+    <div> {/* Reduce the width by 30% */}
       <h1 className="flex text-4xl mt-[-39px] py-20 items-center justify-center gap-2 text-white font-mono">
         <img src="/medico-white.png" width={80} alt="Medico logo"/>
         NIROG
