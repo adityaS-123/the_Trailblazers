@@ -123,7 +123,13 @@ const HospitalSchema = mongoose.Schema({
   },
   password: {
     type: String
-  }
+  },
+  email:{
+    type:String,
+    required:true,
+    unique:true
+  },
+  
 })
 
 

@@ -39,24 +39,7 @@ const LandingPage = () => {
             <td className="border-2 border-slate-400"> 1.30 p.m.</td>
           </tr>
         </table>
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-    <div>
-      adwawd
-    </div>
+        
       </div>
       <div className="fixed bottom-8 flex hover:scale-110 hover:shadow-lg duration-100 items-center justify-center right-8 rounded-full w-20 h-20 bg-green-500">
         <img src="/chatbot.png" width={85}/>
