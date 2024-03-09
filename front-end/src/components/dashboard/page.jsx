@@ -17,50 +17,52 @@ const Page = () => {
 
 
   return (
-    <div className="m-0 flex flex-grow min-h-full text-center">
-      <div className="w-[35vw] h-max bg-[#2e90f5]">
+    <div className="m-0 flex justify-end min-h-full w-full text-center">
+      <div className="w-[17vw] h-[90vh] left-0 top-10 rounded-tr-3xl rounded-br-3xl bg-[#2e90f5] fixed z-50">
 
         <Sidebar changeMode={setCurrentViewingMode}/>
       </div>
       
-      {
-        (()=>{
-          switch (currentViewingMode) {
-            case 'landing':
-              return(
-                <LandingPage />
-              )
-              break;
-            case 'hospitalSelect':
-              return(
-                <HospitalSelect />
-              )
-              break;
-            case 'registration':
-              return(
-                <RegistrationForm />
-              )
-              break
-            case 'report':
-              return(
-                <MyReports />
-              )
-              break
-            case 'prescription':
-              return(
-                <MyPrescriptions />
-              )
-              break
-            case 'doxaab':
-              return(
-                <Doxaab />
-              )
-              break
-            default:
-              break;
-          }
-        })()
-      }
+      <div className="w-[75vw] self-end">
+        {
+          (()=>{
+            switch (currentViewingMode) {
+              case 'landing':
+                return(
+                  <LandingPage />
+                  )
+                  break;
+                  case 'hospitalSelect':
+                    return(
+                      <HospitalSelect />
+                      )
+                      break;
+                      case 'registration':
+                        return(
+                  <RegistrationForm />
+                  )
+                  break
+                  case 'report':
+                    return(
+                      <MyReports />
+                      )
+                      break
+                      case 'prescription':
+                        return(
+                          <MyPrescriptions />
+                          )
+                          break
+                          case 'doxaab':
+                            return(
+                              <Doxaab />
+                              )
+                              break
+                              default:
+                                break;
+            }
+          })()
+        }
+      </div>
     </div>
   )
 }

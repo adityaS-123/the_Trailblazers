@@ -6,7 +6,9 @@ module.exports = {
   },
   plugins: [],
   theme:{fontFamily:{
-    sans: ['DM Sans', 'sans-serif'],
+    'sans': ['DM Sans', 'sans-serif'],
+    'binate':['Binate', 'sans-serif'],
+    'mono': ['Space Mono', 'monospace'],
   },
 },
 }
