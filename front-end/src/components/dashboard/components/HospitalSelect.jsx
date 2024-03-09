@@ -1,6 +1,6 @@
 import React from 'react';
 
-const HospitalSelect = () => {
+const HospitalSelect = ({changeMode, setHospital}) => {
   const avlbHospitals = [
     {
       "name": "Sunrise Memorial Hospital",
@@ -27,6 +27,14 @@ const HospitalSelect = () => {
       "contact": "info@goldengatemedical.com"
     }
   ];
+
+
+
+  const handleSelect = (value) => {
+    alert(`your selected hospital is: ${value}`)
+    setHospital(value)
+    changeMode('registration')
+  }
 
   return (
     <div className="relative flex flex-col gap-8 w-full">
@@ -63,7 +71,7 @@ const HospitalSelect = () => {
                 </p>
               </div>
             </div>
-            <button className="bg-[#2e90f5] rounded-full py-2 px-5 text-white hover:scale-105 duration-100 hover:shadow-lg">
+            <button className="bg-[#2e90f5] rounded-full py-2 px-5 text-white hover:scale-105 duration-100 hover:shadow-lg" onClick={() => handleSelect(hospital.name)}>
               SELECT
             </button>
           </div>

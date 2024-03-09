@@ -1,7 +1,7 @@
 import React from 'react'
 import '../page.css'
 
-const LandingPage = () => {
+const LandingPage = ({changeMode}) => {
   return (
     <div className="flex flex-col gap-8 w-full">
       <div className="flex gap-5 items-center justify-start p-5">
@@ -16,7 +16,7 @@ const LandingPage = () => {
           <p className="font-extrabold text-4xl text-[#2e90f5]">
             NOT FEELING WELL ?
           </p>
-          <button className="bg-[#2e90f5] hover:scale-105 hover:shadow-lg duration-100 text-white font-bold py-4 text-2xl">
+          <button className="bg-[#2e90f5] hover:scale-105 hover:shadow-lg duration-100 text-white font-bold py-4 text-2xl" onClick={()=>changeMode('hospitalSelect')}>
             BOOK APPOINTMENT
           </button>
         </div>

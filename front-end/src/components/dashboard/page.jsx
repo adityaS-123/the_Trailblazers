@@ -9,13 +9,16 @@ import RegistrationForm from './components/RegistrationForm'
 
 const Page = () => {
   const [currentViewingMode, setCurrentViewingMode] = useState('landing')
-
+  const [selectedHospital, setSelectedHospital] = useState('')
 
   const changeFromComp = (value) => {
     setCurrentViewingMode(value)
   }
 
 
+  const hospSelect = (value) => {
+    setSelectedHospital(value)
+  }
 
 
   return (
@@ -31,12 +34,12 @@ const Page = () => {
             switch (currentViewingMode) {
               case 'landing':
                 return(
-                  <LandingPage />
+                  <LandingPage changeMode={changeFromComp} />
                   )
                   break;
               case 'hospitalSelect':
                     return(
-                      <HospitalSelect />
+                      <HospitalSelect changeMode = {setCurrentViewingMode} setHospital={hospSelect}/>
                       )
                       break;
               case 'registration':
