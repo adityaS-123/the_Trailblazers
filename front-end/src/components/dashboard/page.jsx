@@ -5,9 +5,10 @@ import MyReports from './components/MyReports'
 import MyPrescriptions from './components/MyPrescriptions'
 import HospitalSelect from './components/HospitalSelect'
 import Doxaab from './components/Doxaab'
+import RegistrationForm from './components/RegistrationForm'
 
 const Page = () => {
-  const [currentViewingMode, setCurrentViewingMode] = useState('landing')
+  const [currentViewingMode, setCurrentViewingMode] = useState('hospitalSelect')
 
 
 
@@ -22,9 +23,44 @@ const Page = () => {
         <Sidebar changeMode={setCurrentViewingMode}/>
       </div>
       
-      <div className="w-full">
-        <LandingPage />
-      </div>
+      {
+        (()=>{
+          switch (currentViewingMode) {
+            case 'landing':
+              return(
+                <LandingPage />
+              )
+              break;
+            case 'hospitalSelect':
+              return(
+                <HospitalSelect />
+              )
+              break;
+            case 'registration':
+              return(
+                <RegistrationForm />
+              )
+              break
+            case 'report':
+              return(
+                <MyReports />
+              )
+              break
+            case 'prescription':
+              return(
+                <MyPrescriptions />
+              )
+              break
+            case 'doxaab':
+              return(
+                <Doxaab />
+              )
+              break
+            default:
+              break;
+          }
+        })()
+      }
     </div>
   )
 }
