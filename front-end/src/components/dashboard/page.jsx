@@ -25,7 +25,7 @@ const Page = () => {
         <Sidebar changeViewingMode={changeFromComp}/>
       </div>
       
-      <div className="w-[75vw] self-end">
+      <div className="w-[80vw] self-end">
         {
           (()=>{
             switch (currentViewingMode) {
