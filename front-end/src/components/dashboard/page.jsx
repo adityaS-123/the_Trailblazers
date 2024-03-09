@@ -8,10 +8,12 @@ import Doxaab from './components/Doxaab'
 import RegistrationForm from './components/RegistrationForm'
 
 const Page = () => {
-  const [currentViewingMode, setCurrentViewingMode] = useState('hospitalSelect')
+  const [currentViewingMode, setCurrentViewingMode] = useState('report')
 
 
-
+  const changeFromComp = (value) => {
+    setCurrentViewingMode(value)
+  }
 
 
 
@@ -20,7 +22,7 @@ const Page = () => {
     <div className="m-0 flex justify-end min-h-full w-full text-center">
       <div className="w-[17vw] h-[90vh] left-0 top-10 rounded-tr-3xl rounded-br-3xl bg-[#2e90f5] fixed z-50">
 
-        <Sidebar changeMode={setCurrentViewingMode}/>
+        <Sidebar changeViewingMode={changeFromComp}/>
       </div>
       
       <div className="w-[75vw] self-end">
@@ -32,27 +34,27 @@ const Page = () => {
                   <LandingPage />
                   )
                   break;
-                  case 'hospitalSelect':
+              case 'hospitalSelect':
                     return(
                       <HospitalSelect />
                       )
                       break;
-                      case 'registration':
+              case 'registration':
                         return(
                   <RegistrationForm />
                   )
                   break
-                  case 'report':
+              case 'report':
                     return(
                       <MyReports />
                       )
                       break
-                      case 'prescription':
+              case 'prescription':
                         return(
                           <MyPrescriptions />
                           )
                           break
-                          case 'doxaab':
+              case 'doxaab':
                             return(
                               <Doxaab />
                               )
