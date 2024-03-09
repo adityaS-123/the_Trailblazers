@@ -7,6 +7,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Nav } from "reactstrap/lib/";
 import Login from "./components/Login";
 import HospLogin from "./components/admin/HospLogin";
+import DocLogin from "./components/doctor/docLogin";
 
 export default function App() {
     return (
@@ -32,6 +33,14 @@ export default function App() {
                 element={
                 <>
                     <HospLogin/>
+                </>
+                }
+            />
+            <Route
+                path="/doctor/login"
+                element={
+                <>
+                    <DocLogin/>
                 </>
                 }
             />

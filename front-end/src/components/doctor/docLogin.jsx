@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const HospLogin = () => {
+const docLogin = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
@@ -14,7 +14,7 @@ const HospLogin = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        // Add your login logic here
+        
     };
 
     return (
@@ -59,4 +59,4 @@ const HospLogin = () => {
     );
 };
 
-export default HospLogin;
+export default docLogin;

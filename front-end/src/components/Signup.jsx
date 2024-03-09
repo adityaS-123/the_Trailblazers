@@ -57,16 +57,16 @@ return(
     
     <form className="login-form ">
           <h1 className='headings'>Signup</h1>
-          <input onChange={(e)=>setName(e.target.value)} className='border px-2 rounded' type="text" placeholder="Name" />
-          <input className='border px-2 rounded' type="number" placeholder="Age" />
-          <input onChange={(e)=>setDob(e.target.value)} className='border px-2 rounded' type="date" placeholder='Date of Birth' />
+          <input onChange={(e)=>setName(e.target.value)} className='border px-2 rounded' type="text" placeholder="Name" value={name} />
+          <input onChange={(e)=>setAge(e.target.value)} className='border px-2 rounded' value={age} type="number" placeholder="Age" />
+          <input onChange={(e)=>setDob(e.target.value)} className='border px-2 rounded' type="date" value={dob} placeholder='Date of Birth' />
           <select className='border px-2 rounded' placeholder="Sex">
             <option value="male">Male</option>
             <option value="female">Female</option>
             <option value="other">Other</option>
           </select>
-          <input  onChange={(e)=>setMobile(e.target.value)}className='border px-2 rounded' type="tel" placeholder="Mobile Number" />
-          <input onChange={(e)=>setEmail(e.target.value)} className='border px-2 rounded' type="email" placeholder="Email" />
+          <input  onChange={(e)=>setMobile(e.target.value)}className='border px-2 rounded' type="tel" value={mobile} placeholder="Mobile Number" />
+          <input onChange={(e)=>setEmail(e.target.value)} className='border px-2 rounded' type="email" value={email} placeholder="Email" />
           <button onClick={handleSubmit}  type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mt-3 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">SignUp</button>
         </form>
   </div>
