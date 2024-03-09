@@ -8,7 +8,7 @@ import Doxaab from './components/Doxaab'
 import RegistrationForm from './components/RegistrationForm'
 
 const Page = () => {
-  const [currentViewingMode, setCurrentViewingMode] = useState('hospitalSelect')
+  const [currentViewingMode, setCurrentViewingMode] = useState('report')
 
 
 
