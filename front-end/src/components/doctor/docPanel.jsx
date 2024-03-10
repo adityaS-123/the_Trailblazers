@@ -33,6 +33,8 @@ const DoctorPanel = () => {
     }
   };
 
+  
+
 
   const getDoctorDetails = async (doctor_id) => {
     try {

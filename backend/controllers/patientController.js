@@ -104,6 +104,20 @@ const loginUser = expressAsync(async(req, res) => {
   )
 })
 
+const dones = expressAsync(async (req, res) => {
+  const { id } = req.body;
+
+  // Declare patient before using it
+  let patient;
+
+  // Now you can use patient without the reference error
+  patient = await Patient.findOneAndUpdate({ _id: id }, { done: true });
+
+  res.status(200).send(patient.done);
+});
+
+  
+
 
 const verifyOTP = expressAsync(async (req, res, next) => {
   const {email, otpEntered} = req.body
@@ -123,4 +137,4 @@ const verifyOTP = expressAsync(async (req, res, next) => {
 
 
 
-module.exports = {currentUser, registerUser, verifyOTP, loginUser, sendOTP}
+module.exports = {currentUser, registerUser, verifyOTP, loginUser, sendOTP,dones}
