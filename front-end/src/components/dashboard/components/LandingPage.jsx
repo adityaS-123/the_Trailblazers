@@ -44,7 +44,7 @@ const LandingPage = ({changeMode}) => {
         <img src="/profile.png" width={100}/>
         <div className="flex flex-col items-start gap-1">
           <p className="text-3xl font-cerebri mb-1">Welcome Back</p>
-          <p className="text-5xl font-cerebri font-bold">{patientDetails.name}</p>
+          <p className="text-5xl font-cerebri font-bold">Mehul</p>
         </div>
       </div>
       <div className="flex w-full justify-start items-center p-4 landing-page-bg">
@@ -70,8 +70,8 @@ const LandingPage = ({changeMode}) => {
             </tr>
           </thead>
           <tr>
-            <td className="border-2 border-slate-400">{doctor.name}</td>
-            <td className="border-2 border-slate-400">{patientDetails.curToken}</td>
+            <td className="border-2 border-slate-400">John Doe</td>
+            <td className="border-2 border-slate-400">Tod4</td>
             <td className="border-2 border-slate-400">10 Mar 2024</td>
             <td className="border-2 border-slate-400">10 a.m.</td>
           </tr>
