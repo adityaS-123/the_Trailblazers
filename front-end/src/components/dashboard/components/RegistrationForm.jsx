@@ -1,6 +1,8 @@
 import React, {useState, useEffect} from 'react'
 
 const RegistrationForm = ({changeMode}) => {
+  const [hospital, sethospital] = useState('')
+
   const options = [
     { "label": "ENT", "value": "ENT" },
     { "label": "Ortho", "value": "Ortho" },
@@ -15,7 +17,7 @@ const RegistrationForm = ({changeMode}) => {
   ]
   
   useEffect(()=> {
-    
+
   }, [])
 
 

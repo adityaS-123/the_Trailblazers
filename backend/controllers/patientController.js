@@ -172,7 +172,5 @@ const verifyotprandom = expressAsync(async (req, res) => {
   }
 })
 
-module.exports = {currentUser, registerUser, verifyOTP, loginUser, sendOTP, verifyotprandom}
+module.exports = {currentUser, registerUser, verifyOTP, loginUser, sendOTP, dones}
 
-
-module.exports = {currentUser, registerUser, verifyOTP, loginUser, sendOTP,dones}
