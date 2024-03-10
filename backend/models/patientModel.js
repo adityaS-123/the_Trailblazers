@@ -29,12 +29,12 @@ const userSchema = new mongoose.Schema({
     curReport:{
         type:String,
     },
-    doctorAssigned:{
+    DoctorAssigned:{
         type:String,
     
     },
     curToken:{
-        type:Number,
+        type:String,
     },
     email: {
         type: String,
@@ -52,7 +52,13 @@ const userSchema = new mongoose.Schema({
     otp: {
         type: Number,
         required: false,
+    },
+    done:{
+        type:Boolean,
+        default:false,
     }
+    
+
 });
 
 const User = mongoose.model('User', userSchema);

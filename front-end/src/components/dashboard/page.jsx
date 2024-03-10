@@ -6,16 +6,21 @@ import MyPrescriptions from './components/MyPrescriptions'
 import HospitalSelect from './components/HospitalSelect'
 import Doxaab from './components/Doxaab'
 import RegistrationForm from './components/RegistrationForm'
+import TokenDetails from './components/TokenDetails'
 
 const Page = () => {
   const [currentViewingMode, setCurrentViewingMode] = useState('landing')
-
+  const [selectedHospital, setSelectedHospital] = useState('')
 
   const changeFromComp = (value) => {
     setCurrentViewingMode(value)
+    localStorage.setItem('mode', value)
   }
 
 
+  const hospSelect = (value) => {
+    setSelectedHospital(value)
+  }
 
 
   return (
@@ -31,17 +36,17 @@ const Page = () => {
             switch (currentViewingMode) {
               case 'landing':
                 return(
-                  <LandingPage />
+                  <LandingPage changeMode={changeFromComp} />
                   )
                   break;
               case 'hospitalSelect':
                     return(
-                      <HospitalSelect />
+                      <HospitalSelect changeMode = {setCurrentViewingMode} setHospital={hospSelect}/>
                       )
                       break;
               case 'registration':
                         return(
-                  <RegistrationForm />
+                  <RegistrationForm changeMode={setCurrentViewingMode}/>
                   )
                   break
               case 'report':
@@ -59,8 +64,13 @@ const Page = () => {
                               <Doxaab />
                               )
                               break
-                              default:
-                                break;
+              case 'tokenDetails':
+                return(
+                  <TokenDetails />
+                  )
+                  break;
+              default:
+                break;
             }
           })()
         }

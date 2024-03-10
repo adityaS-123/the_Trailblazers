@@ -1,5 +1,6 @@
 import React,{useState} from 'react';
 import './Login.css'; // Make sure to create a corresponding CSS file
+import axios from 'axios';
 
 const LoginForm = () => {
 
@@ -9,13 +10,41 @@ const LoginForm = () => {
   const [mobile, setMobile] = useState('');
 
   const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log("kattaa");
+    e.preventDefault()
+
+    const sendOTP = async () => {
+      await axios.post('http://localhost:8008/user/sendOTP', {email, isRegistered: true})
+      .then(response => response)
+      .then(data => console.log("otp sending response: ", data))
+      .then(alert('otp sent'))      
+    }
+
+    sendOTP()
+
     setOpen(!open);
 
   }
   const handleVerify = (e) => {
     e.preventDefault();
+    alert(`otp you entered is ${otp}`)  
+
+    const loginUser = async () => {
+      await axios.post('http://localhost:8008/user/login/', {email, otp})
+      .then(res=>{
+        if (res.status == 200) {
+          console.log('res after register: ', res)
+          const token = res.data.token
+          console.log("recieved token: ", token)
+          localStorage.setItem('userJWT', token)
+          console.log('set jwt')
+          window.location.href = '/myDashboard'
+        } else {
+          alert('lode lag agyes: ')
+        }
+      })
+    }
+
+    loginUser()
     
   }
 
@@ -24,7 +53,7 @@ return(
 
 
     <div class="min-w-screen bg-[#72B3BE] min-h-screen overflow-hidden login-container text-center justify-center p-0 align-center ">
-       {open &&
+      {open &&
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
           <div className="bg-white p-8 rounded-lg text-center">
             <h2 className="text-2xl font-bold mb-4">OTP Verification</h2>
@@ -34,8 +63,6 @@ return(
               value={otp}
               onChange={(e) => setOtp(e.target.value)}
               placeholder="Enter OTP"
-              
-              
             />
             <br />
             <button onClick={handleVerify} className="bg-blue-500 text-white px-4 py-2 rounded mr-2">

@@ -29,7 +29,9 @@ const login=expressAsync(async(req,res)=>{
  const register=expressAsync(async(req,res)=>{
     console.log("register strart");
     try{
-        const {type, ENT, Ortho, Neuro, Pediatrics, Cardio, Pulmonary, Dental, Gynecology, Dermatology, Psychiatry, name, address, pincode, password}=req.body
+        const {  name,email, address, pincode, password}=req.body
+        console.log(name,email, address, pincode, password);
+
         const hospitalExists=await Hospital.findOne({name})
         if(hospitalExists){
             console.log("found already");
@@ -37,7 +39,7 @@ const login=expressAsync(async(req,res)=>{
             throw new Error('hospital already exists')
         }
         const hospital=await Hospital({
-            type, ENT, Ortho, Neuro, Pediatrics, Cardio, Pulmonary, Dental, Gynecology, Dermatology, Psychiatry, name, address, pincode, password           
+             name,email, address, pincode, password           
         })
         console.log("created!");
         
@@ -72,6 +74,17 @@ const getAlldoctors=expressAsync(async(req,res)=>{
         res.status(500).send
     }
 })
+
+const getHospitalDetails=expressAsync(async(req,res)=>{
+    try{
+
+        const hospital=await Hospital.findById(req.body.hospital_id)
+        res.json(hospital)
+    }catch(e){
+        res.status(500).send
+    }
+})
+
 const getAllHospitals=expressAsync(async(req,res)=>{
     try{
         const hospitals=await Hospital.find({})
@@ -93,7 +106,7 @@ const selectHospital=expressAsync(async(req,res)=>{
 })
 
 
-module.exports = {login,register,getAlldoctors,getAllHospitals,selectHospital}
+module.exports = {login,register,getAlldoctors,getAllHospitals,selectHospital,getHospitalDetails}
 
 
 

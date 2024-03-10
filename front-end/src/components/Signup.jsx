@@ -1,25 +1,57 @@
 import React, { useState } from 'react';
 import './Login.css'; // Make sure to create a corresponding CSS file
+import axios from 'axios'
 
 const LoginForm = () => {
 
   const [open, setOpen] = useState(false);
-  const [otp, setOtp] = useState('');
+  const [otp, setOtp] = useState(0);
   const [email, setEmail] = useState('');
   const [mobile, setMobile] = useState('');
   const [name, setName] = useState('');
   const [age, setAge] = useState('');
   const [dob, setDob] = useState('');
+  const [sex, setSex] = useState('')
 
-  const handleSubmit = (e) => {
+  const handleSendOTP = (e) => {
     e.preventDefault();
-    console.log("kattaa");
+
+    const sendOTP = async () => {
+      await axios.post('http://localhost:8008/user/sendOTP', {name, sex, dob, age, mobile, email, isRegistered: false})
+        .then(response => response)
+        .then(data => console.log("otp sending response: ", data))
+        .then(alert('otp sent'))
+    }
+    sendOTP()
+
+    console.log("sentOTP");
     setOpen(!open);
+
   }
 
   const handleVerify = (e) => {
     e.preventDefault();
+    alert(`otp you entered is ${otp}`)  
+
+    const registerUser = async () => {
+      await axios.post('http://localhost:8008/user/register/', {name, otp, sex, dob, age, mobile, email})
+      .then(res=>{
+        if (res.status == 201) {
+          console.log('res after register: ', res)
+          const token = res.data.token
+          console.log("recieved token: ", token)
+          localStorage.setItem('userJWT', token)
+          console.log('set jwt')
+          window.location.href = '/myDashboard'
+        } else {
+          alert('lode lag agyes: ')
+        }
+      })
+    }
+
+    registerUser()
   }
+
 
   return (
     <div className="min-w-screen bg-[#72B3BE] min-h-screen overflow-hidden login-container text-center justify-center p-0 align-center">
@@ -73,7 +105,10 @@ const LoginForm = () => {
           <select
             className='border px-2 rounded input-field' // Added custom class 'input-field'
             placeholder="Sex"
+            value={sex}
+            onChange={(e)=>setSex(e.target.value)}
           >
+            <option value="">Select </option>
             <option value="male">Male</option>
             <option value="female">Female</option>
             <option value="other">Other</option>
@@ -92,7 +127,8 @@ const LoginForm = () => {
             placeholder="Email"
             value={email}
           />
-          <button onClick={handleSubmit} type="button" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mt-3 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">SignUp</button>
+          <button onClick={handleSendOTP} type="button" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mt-3 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+          >SignUp</button>
         </form>
       </div>
 

@@ -1,4 +1,5 @@
 const Doctor =require( '../models/doctorModel.js')
+const Patients = require('../models/patientModel.js')
 const Hospital = require('../models/hospitalModel.js')
 const generateToken =require('../utils/generateToken.js')
 const jwt = require('jsonwebtoken')
@@ -9,7 +10,8 @@ const jwt = require('jsonwebtoken')
         const doctor=await Doctor.findOne({email})
         if(doctor &&  doctor.password==password){
             const jwtToken= generateToken(doctor._id);
-            res.json({
+            console.log(jwtToken)
+            res.status(200).json({
                 _id:doctor._id,
                 name:doctor.name,
                 email:doctor.email,
@@ -187,20 +189,33 @@ const jwt = require('jsonwebtoken')
 
  const getDoctor=async(req,res)=>{
     try{
-        const doctor=await Doctor.findById(req.doctor._id)
-        res.json(doctor)
+        console.log("getDoctor")
+        console.log(req.body.doctor_id)
+        const doctor=await Doctor.findOne({_id: req.body.doctor_id})
+        res.status(200).json(doctor)
     }catch(e){
-        res.status(500).send
+        res.status(500)
     }
+}
+
+const getPatients = async(req, res)=>{
+    const {doctor_id} = req.body
+    console.log("doctor_id: ", doctor_id)
+    const patients = await Patients.find({DoctorAssigned: doctor_id})
+    console.log("patients: ", patients)
+    res.json(patients)
 }
 
 const doneForToday = async(req, res)=>{
     const {jwtToken} = req.body
 
     const data = jwt.decode(jwtToken)
-    const {name, doctor_id} = body
+    console.log("data: ", data)
+    const {name, id} =data
+    console.log(id)
 
-    const doctor = await Doctor.findOne({_id: doctor_id})
+    const doctor = await Doctor.findOne({_id: id})
+    console.log("doctor: ", doctor)
     const todayPatients = doctor.today
     const tomorrowPatients = doctor.tomorrow
     const combinedArray =  [todayPatients, tomorrowPatients]
@@ -208,15 +223,16 @@ const doneForToday = async(req, res)=>{
 
     if ((todayPatients.length + tomorrowPatients.length) > 28){
         const leftoverLen = todayPatients.length + tomorrowPatients.length - 28
-        await Doctor.findByIdAndUpdate({_id: doctor._id, today: combinedArray.slice(0, leftoverLen)})
+        await Doctor.findByIdAndUpdate({_id: id, today: combinedArray.slice(0, leftoverLen),tomorrow: combinedArray.slice(leftoverLen)})
     } else{
-        await Doctor.findByIdAndUpdate({_id: doctor_id, today: [combinedArray]})
+        await Doctor.findByIdAndUpdate({_id: id, today: [combinedArray]})
     }
     
     // append them to tomorrow
 }
 
-module.exports={login,register,getDoctor, doneForToday};
+module.exports={login,register,getDoctor, doneForToday, getPatients};
+
 
 
 

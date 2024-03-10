@@ -1,6 +1,11 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
+import axios from 'axios'
 
-const RegistrationForm = () => {
+const RegistrationForm = ({changeMode}) => {
+  const [selectedOption, setSelectedOption] = useState('');
+  const [hospital, sethospital] = useState('')
+  const [day, setDay] = useState('')
+
   const options = [
     { "label": "ENT", "value": "ENT" },
     { "label": "Ortho", "value": "Ortho" },
@@ -14,7 +19,31 @@ const RegistrationForm = () => {
     { "label": "Psychiatry", "value": "Psychiatry" }
   ]
   
-  const [selectedOption, setSelectedOption] = useState('');
+  useEffect(()=> {
+    sethospital(localStorage.getItem("hospital"))
+  }, [])
+
+
+  const handleProceed = () => {
+    alert("hitting button")
+    const userJWT = localStorage.getItem("userJWT")
+    // hit api
+    const sendToTokenController = async () => {
+      alert("about to send request to server")
+      await axios.post('http://localhost:8008/user/allot_token_number', {
+        userJWT,
+        appointmentType: selectedOption,
+        severity: 3,
+        day
+      })
+      .then(res=>console.log('res', res))
+    }
+
+    sendToTokenController()
+    // run the changes
+    changeMode('landing')
+  }
+
 
   const handleSelect = (value) => {
     setSelectedOption(value)
@@ -45,6 +74,23 @@ const RegistrationForm = () => {
           </select>
         </div>
 
+        <div className="mt-10 dropdown self-start">
+        <p className="font-bold">Day</p>
+          <select
+            value={day}
+            onChange={(e) => setDay(e.target.value)}
+            className="px-10 py-3 rounded-full bg-slate-200 border-2 border-black"
+          >
+              <option value="">Select a day</option>
+              <option value={"today"}>
+                Today
+              </option>
+              <option value={"tomorrow"}>
+                Tomorrow
+              </option>
+          </select>
+        </div>
+
         <div className="self-start w-full text-left mt-5">
 
           <p className="font-bold">Symptoms/लक्षण</p>
@@ -55,7 +101,7 @@ const RegistrationForm = () => {
 
         </div>
       </div>
-      <button className=" bg-green-500 text-black font-medium text-xl self-center px-5 py-2 rounded-xl">
+      <button onClick={handleProceed} className=" bg-green-500 text-black font-medium text-xl self-center px-5 py-2 rounded-xl">
         Proceed
       </button>
     </div>

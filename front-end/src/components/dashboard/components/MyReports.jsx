@@ -16,8 +16,8 @@ const RecordList = ({ records }) => {
               <img src="red arrow.png" alt="Doctor" className='rounded-full' style={{ width: '50px', height: '50px' }} />
             )}
           </div>
-          <div className="ml-4">
-            <h3 className="text-lg font-semibold">
+          <div className="ml-4 text-center">
+            <h3 className="text-lg font-semibold ">
               RECORDS ADDED BY {record.type.toUpperCase()}
             </h3>
 

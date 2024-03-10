@@ -1,6 +1,22 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
+import axios from 'axios';
 
-const HospitalSelect = () => {
+const HospitalSelect = ({changeMode, setHospital}) => {
+
+  const [hospitals, setHospitals] = useState([])
+  const [currentHospital, setCurrentHospital] = useState({})
+
+  useEffect(()=> {
+    const fetchhospital = async () => {
+      await axios.get('http://localhost:8008/admin/getHospital')
+        .then(res=>{
+          setHospitals(res.data)
+        })
+    }
+
+    fetchhospital()
+  }, [])
+
   const avlbHospitals = [
     {
       "name": "Sunrise Memorial Hospital",
@@ -28,6 +44,28 @@ const HospitalSelect = () => {
     }
   ];
 
+
+
+  const handleSelect = (value) => {
+    alert(`your selected hospital is: ${value}`)
+    setCurrentHospital(value)
+    changeMode('registration')
+    localStorage.setItem("hospital", value)
+    const userJWT = localStorage.getItem('userJWT')
+    const saveHospital = async () => {
+      await axios.post('http://localhost:8008/user/add_hospital', {userJWT, currentHospital})
+        .then(res=> {
+          if(res.status == 200) {
+            alert("selected this hospital for you.")
+          } else {
+            alert('couldnt allot hospital')
+          }
+        })
+    }
+
+    saveHospital()
+  }
+
   return (
     <div className="relative flex flex-col gap-8 w-full">
       <div className="absolute top-10 left-10 py-2 px-20 rounded-full border-black border-2">
@@ -42,7 +80,7 @@ const HospitalSelect = () => {
         </h2>
       </div>
       <div className="flex flex-col gap-3 w-full mt-5">
-        {avlbHospitals.map((hospital, index) => (
+        {hospitals.map((hospital, index) => (
           <div key={index} className="flex border-black bg-slate-200 border-2 w-11/12 m-auto rounded-3xl items-center justify-between px-5 py-2">
             <div className="flex flex-col items-start">
               <h5 className="font-bold">
@@ -59,11 +97,11 @@ const HospitalSelect = () => {
               </div>
               <div className="flex items-center">
               <img src="/mail.png" alt="Location icon" className="mr-0" style={{ width: '4em', height: '4em' , marginTop: '-0.50em', marginRight: '-1em'}} />                <p>
-                  {hospital.contact}
+                  {hospital.email}
                 </p>
               </div>
             </div>
-            <button className="bg-[#2e90f5] rounded-full py-2 px-5 text-white hover:scale-105 duration-100 hover:shadow-lg">
+            <button className="bg-[#2e90f5] rounded-full py-2 px-5 text-white hover:scale-105 duration-100 hover:shadow-lg" onClick={() => handleSelect(hospital.name)}>
               SELECT
             </button>
           </div>

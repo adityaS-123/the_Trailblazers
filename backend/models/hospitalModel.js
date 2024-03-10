@@ -108,6 +108,7 @@ const HospitalSchema = mongoose.Schema({
   name: {
     type: String,
     required: true,
+    unique: true
   },
   address:{
     type: String,
@@ -126,8 +127,7 @@ const HospitalSchema = mongoose.Schema({
   },
   email:{
     type:String,
-    required:true,
-    unique:true
+    
   },
   
 })
