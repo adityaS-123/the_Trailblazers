@@ -191,10 +191,10 @@ const jwt = require('jsonwebtoken')
     try{
         console.log("getDoctor")
         console.log(req.body.doctor_id)
-        const doctor=await Doctor.findById(req.body.doctor_id)
-        res.json(doctor)
+        const doctor=await Doctor.findOne({_id: req.body.doctor_id})
+        res.status(200).json(doctor)
     }catch(e){
-        res.status(500).send
+        res.status(500)
     }
 }
 
@@ -204,8 +204,6 @@ const getPatients = async(req, res)=>{
     const patients = await Patients.find({DoctorAssigned: doctor_id})
     console.log("patients: ", patients)
     res.json(patients)
-    
-    
 }
 
 const doneForToday = async(req, res)=>{

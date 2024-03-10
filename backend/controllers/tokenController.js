@@ -2,27 +2,34 @@ const Patient = require('../models/patientModel');
 const Hospital = require('../models/hospitalModel');
 const Doctor = require('../models/doctorModel');
 const generateToken = require('../utils/generateToken');
-
-
+const jwt = require('jsonwebtoken')
 
 const makeToken=async(req,res)=>{
-    console.log("aagya")
+
     try{
-        const {useremail,severity,appointmentType,day}=req.body;
+        console.log("hitting token route")
+        const {userJWT,severity,appointmentType,day}=req.body;
+        console.log('appointment tpye asked for: ', appointmentType)
+        const payload = jwt.decode(userJWT)
+        const patient = await Patient.findOne({_id: payload.id})
+
+        const useremail = patient.email
         console.log(useremail,severity,appointmentType,day)
-        const patient= await Patient.findOne({email:useremail});
 
         console.log('patient', patient)
         const hospitalId=patient.hospitals[patient.hospitals.length-1];
 
-        console.log('hopspita idL ', hospitalId)
+        console.log('hopspital ', hospitalId)
         
         const currentHospital= await Hospital.findOne({_id:hospitalId})
         console.log("current: ", currentHospital)
 
 
-        const seniorId= currentHospital[appointmentType].senior.id
-        const juniorId= currentHospital[appointmentType].junior.id
+        const currentDept = currentHospital[appointmentType]
+        console.log(currentDept)
+
+        const seniorId= currentHospital[appointmentType].senior.doctorId
+        const juniorId= currentHospital[appointmentType].junior.doctorId
 
         console.log('ids: ', seniorId, juniorId)
 
@@ -45,7 +52,7 @@ const makeToken=async(req,res)=>{
                         // assigning the doctor
                         patient.DoctorAssigned=seniorId
 
-                        patient.curToken=token
+                        patient.curToken=`Tom${token}`
                         await patient.save()
                         await seniorDoctor.save()
                         res.status(200).json(token=`Tom${token}`,DoctorAssigned=`Dr.${seniorDoctor.name}`)
@@ -55,43 +62,41 @@ const makeToken=async(req,res)=>{
                     seniorDoctor.today.push(patient._id)
                     const token = seniorDoctor.today.length
                     patient.DoctorAssigned=seniorId
-                    patient.curToken=token
+                    patient.curToken=`Tod${token}`
 
                     // saving the data
                     await patient.save()
                     await seniorDoctor.save()
-                    res.json({token: `Tod${token}`,DoctorAssigned:`Dr.${seniorDoctor.name}`})
+                    res.status(200).json({token: `Tod${token}`,DoctorAssigned:`Dr.${seniorDoctor.name}`})
                 }
             }
             else{
                 if(juniorDoctor.today.length>=28){
                     if(juniorDoctor.tomorrow.length>=28){
                         res.json("No slots available for today and Tomorrow")
-
                     }
                     else{
                         juniorDoctor.tomorrow.push(patient._id);
                         const token =juniorDoctor.tomorrow.length
                         patient.DoctorAssigned=juniorId;
-                        patient.curToken=token
+                        patient.curToken=`Tod${token}`
 
                         // saving the data
                         await patient.save()
                         await juniorDoctor.save()
-                        res.json(token=`Tod${token}`,DoctorAssigned=`Dr.${juniorDoctor.name}`)
-
+                        res.status(200).json(token=`Tod${token}`,DoctorAssigned=`Dr.${juniorDoctor.name}`)
                     }
                 }
                 else{
                     juniorDoctor.today.push(patient._id)
                     const token = juniorDoctor.today.length
                     patient.DoctorAssigned = juniorId
-                    patient.curToken=token
+                    patient.curToken=`Tod${token}`
 
                     // saving the data
                     await patient.save()
                     await juniorDoctor.save()
-                    res.json(token=`Tod${token}`,DoctorAssigned=`Dr.${juniorDoctor.name}`)
+                    res.status(200).json(token=`Tod${token}`,DoctorAssigned=`Dr.${juniorDoctor.name}`)
                 }
             }
         }
@@ -104,30 +109,28 @@ const makeToken=async(req,res)=>{
                     seniorDoctor.tomorrow.push(patient._id);
                     const token =seniorDoctor.tomorrow.length
                     patient.DoctorAssigned=seniorId;
-                    patient.curToken=token;
+                    patient.curToken=`Tom${token}`
 
                     //saving the data
                     await patient.save()
                     await seniorDoctor.save()
-                    res.json(token=`Tom${token}`,DoctorAssigned=`Dr.${seniorDoctor.name}`)
+                    res.status(200).json(token=`Tom${token}`,DoctorAssigned=`Dr.${seniorDoctor.name}`)
                 }
             }
             else{
                 if(juniorDoctor.tomorrow.length>=28){
                     res.json("No slots available for today and Tomorrow")
-
-
                 }
                 else{
                     juniorDoctor.tomorrow.push(patient._id)
                     const token =junior.tomorrow.length
                     patient.DoctorAssigned=juniorId
-                    patient.curToken=token
+                    patient.curToken=`Tom${token}`
 
                     // saving the data
                     await patient.save()
                     await juniorDoctor.save()
-                    res.json(token=`Tom${token}`,DoctorAssigned=`Dr.${juniorDoctor.name}`)
+                    res.status(200).json(token=`Tom${token}`,DoctorAssigned=`Dr.${juniorDoctor.name}`)
                 }
             }
 
