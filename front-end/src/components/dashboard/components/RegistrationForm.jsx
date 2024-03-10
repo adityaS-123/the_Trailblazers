@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 
 const RegistrationForm = ({changeMode}) => {
   const options = [
@@ -14,6 +14,11 @@ const RegistrationForm = ({changeMode}) => {
     { "label": "Psychiatry", "value": "Psychiatry" }
   ]
   
+  useEffect(()=> {
+    
+  }, [])
+
+
   const handleProceed = () => {
     // hit api
 

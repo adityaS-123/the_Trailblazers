@@ -1,14 +1,40 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
+import axios from 'axios'
+import {jwtDecode} from 'jwt-decode'
 import '../page.css'
 
 const LandingPage = ({changeMode}) => {
+
+  const [patientDetails, setPatientDetails] = useState({})
+
+  useEffect(()=>{
+    const jwtToken = localStorage.getItem('userJWT')
+    if (!jwtToken) {
+      window.location.href = '/login'
+    }
+
+    const fetchData = async () => {
+      await axios.post('http://localhost:8008/user/current/', {jwtToken})
+      .then(res=> {
+        const patientDetails = res.data.patient
+        console.log('patientDetails: ', patientDetails)
+        setPatientDetails(patientDetails)
+      })
+    }
+
+    fetchData()
+
+
+  }, [])
+
+
   return (
     <div className="flex flex-col gap-4 w-full">
       <div className="flex gap-3 items-center justify-start p-4">
         <img src="/profile.png" width={100}/>
         <div className="flex flex-col items-start gap-1">
           <p className="text-3xl font-cerebri mb-1">Welcome Back</p>
-          <p className="text-5xl font-cerebri font-bold">Rakesh Kumar</p>
+          <p className="text-5xl font-cerebri font-bold">{patientDetails.name}</p>
         </div>
       </div>
       <div className="flex w-full justify-start items-center p-4 landing-page-bg">

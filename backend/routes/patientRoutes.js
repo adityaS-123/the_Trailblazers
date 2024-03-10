@@ -6,8 +6,8 @@ const makeToken = require('../controllers/tokenController')
 const router = express.Router()
 router.route('/login/').post(verifyOTP, loginUser)
 router.route('/sendOTP').post(sendOTP)
-router.route('/register/').post(registerUser)
-router.route('/current/').get(currentUser)
+router.route('/register/').post(verifyOTP, registerUser)
+router.route('/current/').post(currentUser)
 router.route('/allot_token_number/').post(makeToken)
 
 module.exports = router
