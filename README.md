@@ -24,6 +24,7 @@ Future Features to be integrated:
 2.**Health Data Management**: Enhanced data management systems can be implemented to securely store and analyze patient health data. This data can be utilized for research purposes, epidemiological studies, and healthcare planning, contributing to evidence-based decision-making and public health interventions.
 
 3.**Advanced Technology Integration**: With the arrival of , the NIROG model can incorporate cutting-edge technologies such as artificial intelligence, machine learning, and predictive analytics. These technologies can further streamline processes, improve diagnosis accuracy, and personalize patient treatment plans.
+![WhatsApp Image 2024-03-10 at 09 56 02_f6502202](https://github.com/Sourabh-awasthy/the_Trailblazers/assets/147153342/89ecb3ab-9908-4906-bd53-b862a14e9946)
 
 
 Challenges we ran into -
