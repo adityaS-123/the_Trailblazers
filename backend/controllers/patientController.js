@@ -119,16 +119,27 @@ const loginUser = expressAsync(async(req, res) => {
   const email = res.locals.email
   const patient = await Patient.findOne({email}) 
 
-  if (patient){
-    const token = generateToken(patient._id)
-    res.status(200).json({token: token, msg: 'Logged in'})
-    console.log(
-      'logged in'
-    )
-  } else {
-    res.status(404).json({msg: 'user not found'})
-  }
-})  
+  const token = jwt.sign({email}, process.env.JWT_KEY)
+
+  res.status(200).json({token: token, msg: 'Logged in'})
+  console.log(
+  'logged in'
+  )
+})
+
+const dones = expressAsync(async (req, res) => {
+  const { id } = req.body;
+
+  // Declare patient before using it
+  let patient;
+
+  // Now you can use patient without the reference error
+  patient = await Patient.findOneAndUpdate({ _id: id }, { done: true });
+
+  res.status(200).send(patient.done);
+});
+
+  
 
 
 const verifyOTP = expressAsync(async (req, res, next) => {
@@ -162,3 +173,6 @@ const verifyotprandom = expressAsync(async (req, res) => {
 })
 
 module.exports = {currentUser, registerUser, verifyOTP, loginUser, sendOTP, verifyotprandom}
+
+
+module.exports = {currentUser, registerUser, verifyOTP, loginUser, sendOTP,dones}

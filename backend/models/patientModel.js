@@ -53,16 +53,12 @@ const userSchema = new mongoose.Schema({
         type: Number,
         required: false,
     },
-    verified: {
-        type: Boolean,
-        required: true,
-        default: false
-    },
-    done: {
-        type: Boolean,
-        required: true,
-        default: false
+    done:{
+        type:Boolean,
+        default:false,
     }
+    
+
 });
 
 const User = mongoose.model('User', userSchema);
