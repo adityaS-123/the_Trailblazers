@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@tinymce/tinymce-react": "^4.3.2",
+    "ai-chat-ui": "^0.0.1-beta.6",
     "axios": "^1.6.7",
     "bootstrap": "^5.3.3",
     "jwt-decode": "^4.0.0",

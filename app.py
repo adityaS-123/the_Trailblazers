@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request, jsonify
+from flask_cors import CORS 
 import random
 import os
 import google.generativeai as genai
@@ -6,6 +7,14 @@ import speech_recognition as sr
 import pyttsx3
 import smtplib
 import json
+from vertexai.generative_models import ChatSession
+
+
+
+#api has been provided here only
+
+
+
 
 model = genai.GenerativeModel('gemini-pro')
 
@@ -13,6 +22,7 @@ os.environ['GOOGLE_API_KEY'] = "AIzaSyBXj7g61Uv2RAC4_V6O0zuM-x-7wS5kbhY"
 genai.configure(api_key = os.environ['GOOGLE_API_KEY'])
 
 app = Flask(__name__)
+CORS(app)
 
 @app.route("/")
 def index():
@@ -20,99 +30,129 @@ def index():
 
 @app.route("/chatget", methods=["POST"])
 def chat():
+    chat = model.start_chat() 
     data = request.json
     msg = data["msg"]
-    response = get_chat_response(msg)
+    response = get_chat_response(chat, msg)  
     return jsonify(response=response)
 
-def get_chat_response(text):
-    response = model.generate_content(text)
-    return response.text
+def get_chat_response(chat: ChatSession, prompt: str) -> str:
+    text_response = []
+    responses = chat.send_message(prompt, stream=True)
+    for chunk in responses:
+        try:
+            text_response.append(chunk.text)
+        except AttributeError:
+            text_response.append(chunk._result.text)  
+    return "".join(text_response)
 
-@app.route("/callget", methods=["POST"])
+@app.route("/chatsevere", methods=["POST"])
+def chat1():
+    chat = model.start_chat() 
+    data = request.json
+    msg = data["msg"]
+    response = get_chat_response1(chat, msg)  
+    return jsonify(response=response)
+
+def get_chat_response1(chat: ChatSession, prompt: str) -> str:
+    text_response = []
+    responses = chat.send_message(prompt, stream=True)
+    for chunk in responses:
+        try:
+            text_response.append(chunk.text)
+        except AttributeError:
+            text_response.append(chunk._result.text) 
+    return "".join(text_response)
+
+@app.route("/callget", methods=["GET"])
 def callchat():
+    chat = model.start_chat()
+    def get_chat_response(chat: ChatSession, prompt: str) -> str:
+        text_response = []
+        responses = chat.send_message(prompt, stream=True)
+        for chunk in responses:
+            text_response.append(chunk.text)
+        return "".join(text_response)
     r = sr.Recognizer()
-    engine = pyttsx3.init('sapi5')
-    voices = engine.getProperty('voices')
-    # print(voices[1].id)
-    engine.setProperty('voice', voices[0].id)
-    engine.setProperty('rate', 150)
+
     my_dictionary = {}
 
+    engine = pyttsx3.init('sapi5')
+    voices = engine.getProperty('voices')
+    engine.setProperty('voice', voices[0].id)
+    engine.setProperty('rate', 150)
 
-    def speak(Audio):
-        engine.say(Audio)
+
+    def speak(text):
+        """Speaks the provided text using the configured voice and rate."""
+        engine.say(text)
         engine.runAndWait()
-    speak("how may I help you?")
 
-    with sr.Microphone() as source2:
-        # speak("silence please, calibrating background noise")
-        r.adjust_for_ambient_noise(source2, duration=0.1)
-        # speak("calibrated, now speak")
-        speak("say one if you want to register an appointment")
 
-        # listen for user input
-        audio2 = r.listen(source2)
+    def take_command():
+        """Takes microphone input from the user and returns the recognized text."""
+        try:
+            with sr.Microphone() as source:
+                print("Listening...")
+                r.pause_threshold = 1
+                audio = r.listen(source)
 
-        # using google to recognize audio
-        MyText = r.recognize_google(audio2)
-        MyText = MyText.lower()
+                print("Recognizing...")
+                query = r.recognize_google(audio, language='en-in')
+                print(f"User said: {query}\n")
+                return query.lower()  # Ensure case-insensitivity
 
-    if MyText == 'one':
-        speak("Sure,could you please tell us your name?")
+        except Exception as e:
+            print(f"Error: {e}")
+            print("Say that again please...")
+            return None
 
-        with sr.Microphone() as source2:
-            # speak("silence please, calibrating background noise")
-            r.adjust_for_ambient_noise(source2, duration=0.1)
-            # speak("calibrated, now speak")
-            audio2 = r.listen(source2)
-            MyText = r.recognize_google(audio2)
-            MyText = MyText.lower()
-            my_dictionary["name"] = MyText
+
+    def register_appointment():
+        """Guides the user through the appointment registration process."""
+        speak("Could you please tell us your name?")
+        name = take_command()
+        if not name:
+            return
 
         speak("What is your age?")
+        age = take_command()
+        if not age:
+            return
 
-        with sr.Microphone() as source2:
-            # speak("silence please, calibrating background noise")
-            r.adjust_for_ambient_noise(source2, duration=0.1)
-            # speak("calibrated, now speak")
-            audio2 = r.listen(source2)
-            MyText = r.recognize_google(audio2)
-            MyText = MyText.lower()
-        
         speak("Are you male or female?")
+        gender = take_command()
+        if not gender:
+            return
 
-        with sr.Microphone() as source2:
-            # speak("silence please, calibrating background noise")
-            r.adjust_for_ambient_noise(source2, duration=0.1)
-            # speak("calibrated, now speak")
-            audio2 = r.listen(source2)
-            MyText = r.recognize_google(audio2)
-            MyText = MyText.lower()
-            my_dictionary["gender"] = MyText
+        speak("Could you please describe your problem?")
+        symptoms = take_command()
+        if not symptoms:
+            return
 
-        speak("could you please describe your problem?")
+        speak("You would be notified about your appointment through SMS and email. Thank you for contacting us.")
 
-        with sr.Microphone() as source2:
-            # speak("silence please, calibrating background noise")
-            r.adjust_for_ambient_noise(source2, duration=0.1)
-            # speak("calibrated, now speak")
-            audio2 = r.listen(source2)
-            MyText = r.recognize_google(audio2)
-            MyText = MyText.lower()
+        # Assuming symptoms is a valid description of the issue
+        prompt = symptoms
+        prompt1 = " on the basis of this how much would the severity be? 5 for very severe and 1 for very less severe"
+        prompt2 = prompt + prompt1
+        newword = get_chat_response(chat, prompt2)
 
-        speak("you would be notified about your appointment through SMS and email, Thank you for contacting us")
 
-        response = model.generate_content(MyText + "on a scale of 1 to 5 where 5 represents quite severe and 1 represents very less severe , much would you rate this statement...just prompt a single number no additional info...just single number")
-        my_dictionary["symptoms"] = MyText
-        my_dictionary["severity"] = response
-        #return response
+        my_dictionary["name"] = name
+        my_dictionary["age"] = age
+        my_dictionary["gender"] = gender
+        my_dictionary["symptoms"] = symptoms
+        my_dictionary["severity"] = newword
 
-        # speak(response)
+        return jsonify({"severity": newword})
+        
+        # print(my_dictionary)
 
-    json_data = json_dumps(my_dictionary)
-    return json_data
 
+    if __name__ == "__main__":
+        speak("welcome to the appointment portal")
+        register_appointment()
 
 if __name__ == '__main__':
     app.run()

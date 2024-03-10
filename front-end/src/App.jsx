@@ -4,7 +4,7 @@ import Page from "./components/dashboard/page";
 import Signup from "./components/Signup"
 import styles from "./index.css"
 import "bootstrap/dist/css/bootstrap.min.css";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route,Navigate } from "react-router-dom";
 import HospLogin from "./components/admin/HospLogin";
 import DocLogin from "./components/doctor/docLogin";
 import HospSignup from "./components/admin/HospRegis";
@@ -15,6 +15,7 @@ export default function App() {
     return (
       <BrowserRouter>
         <Routes>
+        <Route path="/" element={<Navigate to="/mydashboard" replace />} />
             <Route
                 path="/login"
                 element={
