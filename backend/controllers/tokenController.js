@@ -43,24 +43,24 @@ const makeToken=async(req,res)=>{
                         seniorDoctor.tomorrow.push(patient._id)
                         const token = senior.tomorrow.length
                         // assigning the doctor
-                        patient.doctorAssigned=seniorId
+                        patient.DoctorAssigned=seniorId
 
                         patient.curToken=token
                         await patient.save()
                         await seniorDoctor.save()
-                        res.status(200).json(token=`Tom${token}`,doctorAssigned=`Dr.${seniorDoctor.name}`)
+                        res.status(200).json(token=`Tom${token}`,DoctorAssigned=`Dr.${seniorDoctor.name}`)
                     }
                 }
                 else{
                     seniorDoctor.today.push(patient._id)
                     const token = seniorDoctor.today.length
-                    patient.doctorAssigned=seniorId
+                    patient.DoctorAssigned=seniorId
                     patient.curToken=token
 
                     // saving the data
                     await patient.save()
                     await seniorDoctor.save()
-                    res.json({token: `Tod${token}`,doctorAssigned:`Dr.${seniorDoctor.name}`})
+                    res.json({token: `Tod${token}`,DoctorAssigned:`Dr.${seniorDoctor.name}`})
                 }
             }
             else{
@@ -72,26 +72,26 @@ const makeToken=async(req,res)=>{
                     else{
                         juniorDoctor.tomorrow.push(patient._id);
                         const token =juniorDoctor.tomorrow.length
-                        patient.doctorAssigned=juniorId;
+                        patient.DoctorAssigned=juniorId;
                         patient.curToken=token
 
                         // saving the data
                         await patient.save()
                         await juniorDoctor.save()
-                        res.json(token=`Tod${token}`,doctorAssigned=`Dr.${juniorDoctor.name}`)
+                        res.json(token=`Tod${token}`,DoctorAssigned=`Dr.${juniorDoctor.name}`)
 
                     }
                 }
                 else{
                     juniorDoctor.today.push(patient._id)
                     const token = juniorDoctor.today.length
-                    patient.doctorAssigned = juniorId
+                    patient.DoctorAssigned = juniorId
                     patient.curToken=token
 
                     // saving the data
                     await patient.save()
                     await juniorDoctor.save()
-                    res.json(token=`Tod${token}`,doctorAssigned=`Dr.${juniorDoctor.name}`)
+                    res.json(token=`Tod${token}`,DoctorAssigned=`Dr.${juniorDoctor.name}`)
                 }
             }
         }
@@ -103,13 +103,13 @@ const makeToken=async(req,res)=>{
                 else{
                     seniorDoctor.tomorrow.push(patient._id);
                     const token =seniorDoctor.tomorrow.length
-                    patient.doctorAssigned=seniorId;
+                    patient.DoctorAssigned=seniorId;
                     patient.curToken=token;
 
                     //saving the data
                     await patient.save()
                     await seniorDoctor.save()
-                    res.json(token=`Tom${token}`,doctorAssigned=`Dr.${seniorDoctor.name}`)
+                    res.json(token=`Tom${token}`,DoctorAssigned=`Dr.${seniorDoctor.name}`)
                 }
             }
             else{
@@ -121,13 +121,13 @@ const makeToken=async(req,res)=>{
                 else{
                     juniorDoctor.tomorrow.push(patient._id)
                     const token =junior.tomorrow.length
-                    patient.doctorAssigned=juniorId
+                    patient.DoctorAssigned=juniorId
                     patient.curToken=token
 
                     // saving the data
                     await patient.save()
                     await juniorDoctor.save()
-                    res.json(token=`Tom${token}`,doctorAssigned=`Dr.${juniorDoctor.name}`)
+                    res.json(token=`Tom${token}`,DoctorAssigned=`Dr.${juniorDoctor.name}`)
                 }
             }
 

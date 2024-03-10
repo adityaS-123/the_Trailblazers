@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import { jwtDecode } from 'jwt-decode';
+import React, { useEffect, useState } from 'react';
 
 const HospDash = () => {
   const [hospitalDetails, setHospitalDetails] = useState({
@@ -58,6 +59,45 @@ const HospDash = () => {
     setDoctors([...doctors, newDoctor]);
     setNewDoctor('');
   };
+
+  const getHospitalDetails = async (id) => {
+    try {
+      console.log('Hospital ID:', id);
+      const response = await fetch(`http://localhost:8008/admin/getHospitalDetails`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ hospital_id: id}),
+      });
+      const data = await response.json();
+      console.log('Hospital Details:', data);
+      console.log(data.name)
+      setHospitalDetails(data);
+
+    }
+    catch (error) {
+      console.error('Error:', error);
+    }
+  };
+  
+
+
+
+  useEffect(() => {
+    // Fetch hospital details
+    const hospital_id = localStorage.getItem('adminJWT');
+    const payload = jwtDecode(hospital_id);
+    const id = payload.id;
+    console.log('Payload:', payload);
+    console.log('Hospital ID:', id);
+    getHospitalDetails(id);
+
+    
+    
+
+    
+  }, []);
 
   return (
     <div className="container mx-auto p-6">

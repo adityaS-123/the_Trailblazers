@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import {Link} from 'react-router-dom';
+
 
 const docLogin = () => {
     const [email, setEmail] = useState('');
@@ -12,10 +14,35 @@ const docLogin = () => {
         setPassword(e.target.value);
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async(e) => {
         e.preventDefault();
+        console.log('Email:', email);
+        console.log('Password:', password);
+        try
+                {
+                    const response = await fetch('http://localhost:8008/doctor/login', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            email,
+                            password,
+                        }),
+                    });
+                    const data = await response.json();
+                    console.log('Success:', data.jwtToken);
+                    localStorage.setItem('docJWT', data.jwtToken);
+                    window.location.href = '/doctor/panel';
+                    
+    } catch (error) {
+        console.error('Error:', error);
+    }
+
         
     };
+
+    
 
     return (
         <div className="flex justify-center items-center h-screen bg-[#72B3BE]">
@@ -51,7 +78,7 @@ const docLogin = () => {
                         className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                         type="submit"
                     >
-                        Sign In
+                        Log In
                     </button>
                 </div>
             </form>

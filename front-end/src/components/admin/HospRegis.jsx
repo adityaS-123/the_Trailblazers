@@ -27,9 +27,32 @@ const HospLogin = () => {
         setAddress(e.target.value);
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit =async (e) => {
         e.preventDefault();
-        // Add your login logic here
+        console.log('Name:', name);
+        console.log('Email:', email);
+        console.log('Password', password);
+        console.log('Pincode:', pincode);
+        console.log('Address:', address);
+
+        try{
+            const response =await  fetch('http://localhost:8008/admin/register', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ name, email, password, pincode, address }),
+            });
+            const data = await response.json();
+            console.log('Admin Login:', data);
+            // setDoctorDetails(data);
+            localStorage.setItem('adminJWT', data.jwtToken);
+            window.location.href = '/admin/panel';
+        }
+        catch (error) {
+            console.error('Error:', error);
+        }
+        
     };
 
     return (

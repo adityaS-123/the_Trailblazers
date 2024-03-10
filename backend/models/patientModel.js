@@ -29,7 +29,7 @@ const userSchema = new mongoose.Schema({
     curReport:{
         type:String,
     },
-    doctorAssigned:{
+    DoctorAssigned:{
         type:String,
     
     },
@@ -52,7 +52,9 @@ const userSchema = new mongoose.Schema({
     otp: {
         type: Number,
         required: false,
-    }
+    },
+    
+
 });
 
 const User = mongoose.model('User', userSchema);
