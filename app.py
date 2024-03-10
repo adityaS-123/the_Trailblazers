@@ -8,8 +8,6 @@ import pyttsx3
 import smtplib
 import json
 from vertexai.generative_models import ChatSession
-<<<<<<< HEAD
-=======
 
 
 
@@ -17,7 +15,6 @@ from vertexai.generative_models import ChatSession
 
 
 
->>>>>>> 07cb1dbcbf9a1572f4ec1eac2b2c56c67dbf5270
 
 model = genai.GenerativeModel('gemini-pro')
 
@@ -25,11 +22,7 @@ os.environ['GOOGLE_API_KEY'] = "AIzaSyBXj7g61Uv2RAC4_V6O0zuM-x-7wS5kbhY"
 genai.configure(api_key = os.environ['GOOGLE_API_KEY'])
 
 app = Flask(__name__)
-<<<<<<< HEAD
-# chat = model.start_chat()
-=======
 CORS(app)
->>>>>>> 07cb1dbcbf9a1572f4ec1eac2b2c56c67dbf5270
 
 @app.route("/")
 def index():
@@ -52,45 +45,27 @@ def get_chat_response(chat: ChatSession, prompt: str) -> str:
         except AttributeError:
             text_response.append(chunk._result.text)  
     return "".join(text_response)
-<<<<<<< HEAD
 
-@app.route("/chatsevere", methods=["POST"])
-def chat1():
-    chat = model.start_chat() 
-    data = request.json
-    msg = data["msg"]
-    response = get_chat_response1(chat, msg)  
-    return jsonify(response=response)
+#this is the flask route to generate the severity of the issue faced by the patient . Use your 
 
-def get_chat_response1(chat: ChatSession, prompt: str) -> str:
-    text_response = []
-    responses = chat.send_message(prompt, stream=True)
-    for chunk in responses:
-        try:
-            text_response.append(chunk.text)
-        except AttributeError:
-            text_response.append(chunk._result.text) 
-    return "".join(text_response)
-=======
->>>>>>> 07cb1dbcbf9a1572f4ec1eac2b2c56c67dbf5270
 
-@app.route("/chatsevere", methods=["POST"])
-def chat1():
-    chat = model.start_chat() 
-    data = request.json
-    msg = data["msg"]
-    response = get_chat_response1(chat, msg)  
-    return jsonify(response=response)
+# @app.route("/chatsevere", methods=["POST"])
+# def chat1():
+#     chat = model.start_chat() 
+#     data = request.json
+#     msg = data["msg"]
+#     response = get_chat_response1(chat, msg)  
+#     return jsonify(response=response)
 
-def get_chat_response1(chat: ChatSession, prompt: str) -> str:
-    text_response = []
-    responses = chat.send_message(prompt, stream=True)
-    for chunk in responses:
-        try:
-            text_response.append(chunk.text)
-        except AttributeError:
-            text_response.append(chunk._result.text) 
-    return "".join(text_response)
+# def get_chat_response1(chat: ChatSession, prompt: str) -> str:
+#     text_response = []
+#     responses = chat.send_message(prompt, stream=True)
+#     for chunk in responses:
+#         try:
+#             text_response.append(chunk.text)
+#         except AttributeError:
+#             text_response.append(chunk._result.text) 
+#     return "".join(text_response)
 
 @app.route("/callget", methods=["GET"])
 def callchat():
