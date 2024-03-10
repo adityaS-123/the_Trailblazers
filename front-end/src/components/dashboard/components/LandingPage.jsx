@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react'
 import axios from 'axios'
-import {jwtDecode} from 'jwt-decode'
 import '../page.css'
 
 const LandingPage = ({changeMode}) => {
@@ -22,8 +21,15 @@ const LandingPage = ({changeMode}) => {
         setPatientDetails(patientDetails)
       })
 
+      console.log(patientDetails)
+
+
       await axios.post('http://localhost:8008/doctor/getDoctor/', {doctor_id: patientDetails.DoctorAssigned})
-        .then(res=>setDoctor(res.data))
+        .then(res=>{
+          console.log('response from get doctor: ', res)
+          setDoctor(res.data)
+
+        })
     }
 
     fetchData()
@@ -66,13 +72,8 @@ const LandingPage = ({changeMode}) => {
           <tr>
             <td className="border-2 border-slate-400">{doctor.name}</td>
             <td className="border-2 border-slate-400">{patientDetails.curToken}</td>
-            <td className="border-2 border-slate-400"></td>
-            <td className="border-2 border-slate-400">
-              {(()=>{
-                const interval = 15 * patientDetails.curToken.splice(2, patientDetails.curToken.length)
-                return `${interval} minutes`
-              })()}
-            </td>
+            <td className="border-2 border-slate-400">10 Mar 2024</td>
+            <td className="border-2 border-slate-400">10 a.m.</td>
           </tr>
         </table>
         

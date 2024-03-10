@@ -2,7 +2,8 @@ const Patient = require('../models/patientModel');
 const Hospital = require('../models/hospitalModel');
 const Doctor = require('../models/doctorModel');
 const generateToken = require('../utils/generateToken');
-const jwt = require('jsonwebtoken')
+const jwt = require('jsonwebtoken');
+const expressAsyncHandler = require('express-async-handler');
 
 const makeToken=async(req,res)=>{
 
@@ -145,4 +146,31 @@ const makeToken=async(req,res)=>{
         }
 }
 
-module.exports = makeToken
+const allotTimeSlots = expressAsyncHandler( async (req, res) => {
+    const {token, userJWT} = req.params
+    const day =""
+    if(token.slice(0, 3) == "tod") {
+        day = "today"
+    }else {
+        day = "tomorrow"
+    }
+
+    const userID = jwt.decode(userJWT)
+    const user = await Patient.findOne({_id: userID})
+    const doctorID = user.DoctorAssigned 
+    const doctor = await Doctor.findOne({_id: doctorID})
+    const docQueueLength = doctor.today.length
+
+
+
+    const tokenNum = token.slice(2, token.length)
+    if (day == "tomorrow") {
+        const timeSlotIntervalFrom9am = 15*tokenNum
+    } else {
+        const existingSlotTime = 15*docQueueLength
+    }
+
+})
+
+
+module.exports = {makeToken, allotTimeSlots}
