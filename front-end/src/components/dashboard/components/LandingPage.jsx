@@ -31,6 +31,17 @@ const LandingPage = ({changeMode}) => {
 
   }, [])
 
+  const callerbot = () => {
+   const res= fetch('http://127.0.0.1:5000/callget',{
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+   })
+  }
+
+
+
 
   return (
     <div className="flex flex-col gap-4 w-full">
@@ -77,7 +88,7 @@ const LandingPage = ({changeMode}) => {
         </table>
         
       </div>
-      <div className="fixed bottom-8 flex hover:scale-110 hover:shadow-lg duration-100 items-center justify-center right-8 rounded-full w-20 h-20 bg-green-500">
+      <div onClick={callerbot} className="fixed bottom-8 flex hover:scale-110 hover:shadow-lg duration-100 items-center justify-center right-8 rounded-full w-20 h-20 bg-green-500">
         <img src="/chatbot.png" width={85}/>
       </div>
     </div>

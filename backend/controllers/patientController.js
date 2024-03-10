@@ -95,6 +95,8 @@ const sendOTP = expressAsync(async(req, res) => {
       pass: "sxbr cqdg qlqb qvff",
     }
   });
+
+  
   
   const mailOptions = {
     from: "appnirog@gmail.com",
