@@ -8,7 +8,7 @@ const HospitalSelect = ({changeMode, setHospital}) => {
 
   useEffect(()=> {
     const fetchhospital = async () => {
-      await axios.get('http://localhost:8008/admin/getHospital')
+      await axios.get('https://the-trailblazers.onrender.com/admin/getHospital')
         .then(res=>{
           setHospitals(res.data)
         })
@@ -53,7 +53,7 @@ const HospitalSelect = ({changeMode, setHospital}) => {
     localStorage.setItem("hospital", value)
     const userJWT = localStorage.getItem('userJWT')
     const saveHospital = async () => {
-      await axios.post('http://localhost:8008/user/add_hospital', {userJWT, currentHospital})
+      await axios.post('https://the-trailblazers.onrender.com/user/add_hospital', {userJWT, currentHospital})
         .then(res=> {
           if(res.status == 200) {
             alert("selected this hospital for you.")

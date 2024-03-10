@@ -18,7 +18,7 @@ const DoctorPanel = () => {
 
   const getPatients = async (doctor_id) => {
     try {
-      const response = await fetch('http://localhost:8008/doctor/getPatients', {
+      const response = await fetch('https://the-trailblazers.onrender.com/doctor/getPatients', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -38,7 +38,7 @@ const DoctorPanel = () => {
 
   const getDoctorDetails = async (doctor_id) => {
     try {
-      const response = await fetch('http://localhost:8008/doctor/getDoctor', {
+      const response = await fetch('https://the-trailblazers.onrender.com/doctor/getDoctor', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -107,7 +107,7 @@ const DoctorPanel = () => {
     try {
       const docJWT = localStorage.getItem('docJWT');
 
-      const response = await fetch('http://localhost:8008/doctor/doneForToday', {
+      const response = await fetch('https://the-trailblazers.onrender.com/doctor/doneForToday', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

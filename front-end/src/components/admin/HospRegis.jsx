@@ -36,7 +36,7 @@ const HospLogin = () => {
         console.log('Address:', address);
 
         try{
-            const response =await  fetch('http://localhost:8008/admin/register', {
+            const response =await  fetch('https://the-trailblazers.onrender.com/admin/register', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
