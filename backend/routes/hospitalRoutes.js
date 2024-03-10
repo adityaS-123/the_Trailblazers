@@ -1,5 +1,5 @@
 const express = require('express');
-const {login,register,getAllHospitals,getAlldoctors} = require('../controllers/hospitalController')
+const {login,register,getAllHospitals,getAlldoctors,getHospitalDetails} = require('../controllers/hospitalController')
 
 const router = express.Router();
 
@@ -13,8 +13,7 @@ router.route('/getHospital').get(getAllHospitals);
 
 router.route('/getDoctors').get(getAlldoctors);
 
-// router.route('/getDoctors').get(hospitalController.getDoctors);
+router.route('/getHospitalDetails').post(getHospitalDetails);
 
 module.exports = router;
 
-module.exports = router;

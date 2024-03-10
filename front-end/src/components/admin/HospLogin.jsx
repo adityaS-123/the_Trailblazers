@@ -12,9 +12,20 @@ const HospLogin = () => {
         setPassword(e.target.value);
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async(e) => {
         e.preventDefault();
-        // Add your login logic here
+        const response = await fetch('http://localhost:8008/admin/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ email, password }),
+        });
+        const data = await response.json();
+        console.log('Hospital Login:', data);
+        localStorage.setItem('adminJWT', data.jwtToken);
+        window.location.href = '/admin/panel';
+        
     };
 
     return (

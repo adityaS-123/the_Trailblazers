@@ -29,7 +29,7 @@ const userSchema = new mongoose.Schema({
     curReport:{
         type:String,
     },
-    doctorAssigned:{
+    DoctorAssigned:{
         type:String,
     
     },
