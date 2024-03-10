@@ -1,6 +1,22 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
+import axios from 'axios';
 
 const HospitalSelect = ({changeMode, setHospital}) => {
+
+  const [hospitals, setHospitals] = useState([])
+  const [currentHospital, setCurrentHospital] = useState({})
+
+  useEffect(()=> {
+    const fetchhospital = async () => {
+      await axios.get('http://localhost:8008/admin/getHospital')
+        .then(res=>{
+          setHospitals(res.data)
+        })
+    }
+
+    fetchhospital()
+  }, [])
+
   const avlbHospitals = [
     {
       "name": "Sunrise Memorial Hospital",
@@ -32,9 +48,22 @@ const HospitalSelect = ({changeMode, setHospital}) => {
 
   const handleSelect = (value) => {
     alert(`your selected hospital is: ${value}`)
-    setHospital(value)
+    setCurrentHospital(value)
     changeMode('registration')
     localStorage.setItem("hospital", value)
+    const userJWT = localStorage.getItem('userJWT')
+    const saveHospital = async () => {
+      await axios.post('http://localhost:8008/user/add_hospital', {userJWT, currentHospital})
+        .then(res=> {
+          if(res.status == 200) {
+            alert("selected this hospital for you.")
+          } else {
+            alert('couldnt allot hospital')
+          }
+        })
+    }
+
+    saveHospital()
   }
 
   return (
@@ -51,7 +80,7 @@ const HospitalSelect = ({changeMode, setHospital}) => {
         </h2>
       </div>
       <div className="flex flex-col gap-3 w-full mt-5">
-        {avlbHospitals.map((hospital, index) => (
+        {hospitals.map((hospital, index) => (
           <div key={index} className="flex border-black bg-slate-200 border-2 w-11/12 m-auto rounded-3xl items-center justify-between px-5 py-2">
             <div className="flex flex-col items-start">
               <h5 className="font-bold">
@@ -68,7 +97,7 @@ const HospitalSelect = ({changeMode, setHospital}) => {
               </div>
               <div className="flex items-center">
               <img src="/mail.png" alt="Location icon" className="mr-0" style={{ width: '4em', height: '4em' , marginTop: '-0.50em', marginRight: '-1em'}} />                <p>
-                  {hospital.contact}
+                  {hospital.email}
                 </p>
               </div>
             </div>

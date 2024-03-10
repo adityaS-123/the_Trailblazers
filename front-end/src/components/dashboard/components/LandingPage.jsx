@@ -6,6 +6,7 @@ import '../page.css'
 const LandingPage = ({changeMode}) => {
 
   const [patientDetails, setPatientDetails] = useState({})
+  const [doctor, setDoctor] = useState({})
 
   useEffect(()=>{
     const jwtToken = localStorage.getItem('userJWT')
@@ -20,6 +21,9 @@ const LandingPage = ({changeMode}) => {
         console.log('patientDetails: ', patientDetails)
         setPatientDetails(patientDetails)
       })
+
+      await axios.post('http://localhost:8008/doctor/getDoctor/', {doctor_id: patientDetails.DoctorAssigned})
+        .then(res=>setDoctor(res.data))
     }
 
     fetchData()
@@ -64,17 +68,22 @@ const LandingPage = ({changeMode}) => {
 
           <thead>
             <tr className="text-xl">
-              <th className="border-2 border-slate-400">Profile</th>
+              <th className="border-2 border-slate-400">Doctor</th>
               <th className="border-2 border-slate-400">Token No</th>
               <th className="border-2 border-slate-400">Date</th>
               <th className="border-2 border-slate-400">Time</th>
             </tr>
           </thead>
           <tr>
-            <td className="border-2 border-slate-400">Dr. Aashish</td>
-            <td className="border-2 border-slate-400">TOD21</td>
-            <td className="border-2 border-slate-400">10 Mar 2024</td>
-            <td className="border-2 border-slate-400"> 1.30 p.m.</td>
+            <td className="border-2 border-slate-400">{doctor.name}</td>
+            <td className="border-2 border-slate-400">{patientDetails.curToken}</td>
+            <td className="border-2 border-slate-400"></td>
+            <td className="border-2 border-slate-400">
+              {(()=>{
+                const interval = 15 * patientDetails.curToken.splice(2, patientDetails.curToken.length)
+                return `${interval} minutes`
+              })()}
+            </td>
           </tr>
         </table>
         

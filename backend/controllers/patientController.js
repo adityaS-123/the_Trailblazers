@@ -7,6 +7,7 @@ const jwt = require('jsonwebtoken')
 const generateToken = require('../utils/generateToken');
 
 const expressAsync = require('express-async-handler');
+const Hospital = require('../models/hospitalModel');
 
 const datatoBot = (async (req, res) => {
     try {
@@ -23,6 +24,23 @@ const datatoBot = (async (req, res) => {
     catch (e) {
         res.status(500).send(e);
     }
+})
+
+const addHospital = expressAsync(async (req, res) => {
+  const {userJWT, hospName} = req.body
+  console.log('adding hospital for: ', userJWT, hospName)
+
+  const hospital = await Hospital.findOne({hospName})
+  console.log('hops: ', hospital)
+  const payload = jwt.decode(userJWT)
+  console.log('paylokad: ', payload)
+  const patient = await Patient.findOne({_id: payload.id})
+  console.log('patient: ', patient)
+  patient.hospitals = [...patient.hospitals, hospital._id]
+  await patient.save()
+  console.log('saved hospital for the patient', hospital, patient)
+
+  res.status(200).json({msg: 'success'})
 })
 
 const currentUser = expressAsync(async(req, res) => {
@@ -141,8 +159,6 @@ const dones = expressAsync(async (req, res) => {
   res.status(200).send(patient.done);
 });
 
-  
-
 
 const verifyOTP = expressAsync(async (req, res, next) => {
   const {email, otp} = req.body
@@ -174,5 +190,5 @@ const verifyotprandom = expressAsync(async (req, res) => {
   }
 })
 
-module.exports = {currentUser, registerUser, verifyOTP, loginUser, sendOTP, dones}
+module.exports = {currentUser, registerUser, verifyOTP, loginUser, sendOTP, dones, addHospital}
 

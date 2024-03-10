@@ -34,7 +34,7 @@ const userSchema = new mongoose.Schema({
     
     },
     curToken:{
-        type:Number,
+        type:String,
     },
     email: {
         type: String,
