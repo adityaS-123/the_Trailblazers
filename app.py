@@ -18,7 +18,7 @@ from vertexai.generative_models import ChatSession
 
 model = genai.GenerativeModel('gemini-pro')
 
-os.environ['GOOGLE_API_KEY'] = "AIzaSyBXj7g61Uv2RAC4_V6O0zuM-x-7wS5kbhY"
+os.environ['GOOGLE_API_KEY'] = "YOUR_API_KEY"
 genai.configure(api_key = os.environ['GOOGLE_API_KEY'])
 
 app = Flask(__name__)
